@@ -5,7 +5,21 @@ gem 'rails', '3.0.5'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+gem 'mysql'
+gem 'devise'
+gem 'cancan'
+
+
+group :development, :test do
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'cucumber'
+  gem 'cucumber-rails'
+  gem 'ruby-debug'
+  gem 'mongrel'
+  gem 'capybara'
+  gem 'launchy'
+end
 
 # Use unicorn as the web server
 # gem 'unicorn'
