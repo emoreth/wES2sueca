@@ -1,0 +1,11 @@
+root { 
+    display: block;
+}
+
+body {
+    background-color: darkolivegreen;
+}
+
+.card {
+    cursor: pointer;
+}
