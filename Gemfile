@@ -19,6 +19,7 @@ group :development, :test do
   gem 'mongrel'
   gem 'capybara'
   gem 'launchy'
+  gem 'heroku'
 end
 
 # Use unicorn as the web server
