@@ -1,0 +1,2 @@
+class Rodada
+end

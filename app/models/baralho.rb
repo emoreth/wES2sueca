@@ -17,6 +17,6 @@ class Baralho
   end
 
   def comprar
-    self.cartas.pop
+    self.cartas.pop 10
   end
 end
