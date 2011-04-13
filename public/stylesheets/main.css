@@ -9,3 +9,71 @@ body {
 .card {
     cursor: pointer;
 }
+
+.jogador-esquerda{
+    background-color: blue;
+    width: 150px;
+    height:600px;	
+    float:left;	
+    vertical-align:center;	
+}
+
+.jogador-direita{
+    background-color: green;
+    width: 150px;
+    height:600px;
+    float:left;
+    vertical-align:center;
+}
+
+.jogador-cima{
+    background-color: yellow;
+    width: 600px;
+    height:100px;
+    float:left;
+    text-align:center;	
+}
+
+.centro{
+    width: 600px;
+    height:600px;
+    float:left;
+}
+
+.jogador-baixo{
+    background-color: black;
+    width: 600px;
+    height:100px;
+    float:left;
+    text-align:center;	
+}
+
+.mesa{
+    background-color: white;
+    width: 600px;
+    height:400px;
+    float:left;
+}
+
+.container{
+    width:960px;	
+    align:center;	
+
+}
+
+#card-baixo{
+    margin-right: -50px
+}
+
+#card-cima{
+    margin-right: -50px
+}
+
+#card-esquerda{
+    margin-bottom: -50px
+}
+
+#card-direita{
+    margin-bottom: -50px
+}
+
