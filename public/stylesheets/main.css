@@ -60,6 +60,12 @@ body {
 
 }
 
+#logo {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+}
+
 .container{
     margin: 0 auto;
     position: relative;
