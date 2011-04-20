@@ -10,67 +10,65 @@ body {
     cursor: pointer;
 }
 
-.jogador-esquerda{
-    width: 100px;
-    height:600px;	
+.jogador_horizontal {
+    width: 96px;
+    height:600px;
     float:left;	
-    vertical-align:middle;	
-    margin-top:150px;
+    top:150px;
+    position: absolute;
 }
 
-.jogador-direita{
-    width: 150px;
-    height:600px;
-    float:left;
-    vertical-align:middle;
-    margin-top:150px;
+.jogador_horizontal.esquerda{
+    left: 0;
 }
 
-.jogador-cima{
-    width: 600px;
-    height:100px;
-    float:left;
-    text-align:center;	
+.jogador_horizontal.direita {
+    left: 704px;
 }
 
-.centro{
-    width: 600px;
-    height:600px;
-    float:left;
+.jogador_vertical {
+    left: 241px;
+    position: absolute;
+    width: 305px;
 }
 
-.jogador-baixo{
-    width: 600px;
-    height:100px;
-    float:left;
-    text-align:center;	
+.jogador_vertical.topo {
+    top: 0px;
+}
+
+.jogador_vertical.baixo {
+    top: 504px;
 }
 
 .mesa{
-    width: 600px;
-    height:400px;
-    float:left;
     background-color: red;
+    height: 400px;
+    left: 100px;
+    position: absolute;
+    top: 100px;
+    width: 600px;
 }
 
 .container{
-    width:960px;
     margin: 0 auto;
+    position: relative;
+    height: 600px;
+    width: 800px;
 }
 
-.card.baixo{
-    margin-right: -50px
-}
-
-.card.topo{
-    margin-right: -50px
-}
-
-.card.esquerda{
+.jogador_horizontal.esquerda .card{
     margin-bottom: -50px
 }
 
-.card.direita{
+.jogador_horizontal.direita .card{
     margin-bottom: -50px
+}
+
+.jogador_vertical.baixo .card{
+    margin-right: -50px
+}
+
+.jogador_vertical.topo .card{
+    margin-right: -50px
 }
 
