@@ -1,103 +1,97 @@
 <div class="container">
 
-  <div class="jogador_horizontal esquerda">
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
+  <div class="jogador_horizontal esquerda" id="leftDeck"></div>
+  <div class="jogador_horizontal direita" id="rightDeck"></div>
+  <div class="jogador_vertical topo" id="topDeck"></div>
+  <div class="jogador_vertical baixo" id="bottomDeck"></div>
+  <div class="mesa" id="table">
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right" %>
+    <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right" %>
+    <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top" %>
+    <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top" %>
+    <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top" %>
+    <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top" %>
+    <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top" %>
+    <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top" %>
+    <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top" %>
+    <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top" %>
+    <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top" %>
+    <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top" %>
+    <%= image_tag "cards/c1.png", :style => "display:none", :class => "card bottom" %>
+    <%= image_tag "cards/c2.png", :style => "display:none", :class => "card bottom" %>
+    <%= image_tag "cards/c3.png", :style => "display:none", :class => "card bottom"  %>
+    <%= image_tag "cards/c4.png", :style => "display:none", :class => "card bottom"  %>
+    <%= image_tag "cards/c5.png", :style => "display:none", :class => "card bottom"  %>
+    <%= image_tag "cards/c6.png", :style => "display:none", :class => "card bottom"  %>
+    <%= image_tag "cards/c7.png", :style => "display:none", :class => "card bottom"  %>
+    <%= image_tag "cards/cj.png", :style => "display:none", :class => "card bottom"  %>
+    <%= image_tag "cards/cq.png", :style => "display:none", :class => "card bottom"  %>
+    <%= image_tag "cards/ck.png", :style => "display:none", :class => "card bottom"  %>
   </div>
-  <div class="jogador_horizontal direita">
-
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-    <%= image_tag "cards/b1fh.png", :class => "card" %>
-
-  </div>
-  <div class="jogador_vertical topo">
-    <%= image_tag "cards/b1fv.png", :class => "card" %>
-    <%= image_tag "cards/b1fv.png", :class => "card" %>
-    <%= image_tag "cards/b1fv.png", :class => "card" %>
-    <%= image_tag "cards/b1fv.png", :class => "card" %>
-    <%= image_tag "cards/b1fv.png", :class => "card" %>
-    <%= image_tag "cards/b1fv.png", :class => "card" %>
-    <%= image_tag "cards/b1fv.png", :class => "card" %>
-    <%= image_tag "cards/b1fv.png", :class => "card" %>
-    <%= image_tag "cards/b1fv.png", :class => "card" %>
-    <%= image_tag "cards/b1fv.png", :class => "card" %>
-
-  </div>
-  <div class="jogador_vertical baixo">
-    <%= image_tag "cards/c1.png", :class => "card" %>
-    <%= image_tag "cards/c2.png", :class => "card" %>
-    <%= image_tag "cards/c3.png", :class => "card"  %>
-    <%= image_tag "cards/c4.png", :class => "card"  %>
-    <%= image_tag "cards/c5.png", :class => "card"  %>
-    <%= image_tag "cards/c6.png", :class => "card"  %>
-    <%= image_tag "cards/c7.png", :class => "card"  %>
-    <%= image_tag "cards/cj.png", :class => "card"  %>
-    <%= image_tag "cards/cq.png", :class => "card"  %>
-    <%= image_tag "cards/ck.png", :class => "card"  %>
-  </div>
-  <div class="mesa"></div>
 
 
 
 </div>
 
 <!--
-<%#= image_tag "cards/c1.png", :class => "card" %>
-<%#= image_tag "cards/c2.png", :class => "card" %>
-<%#= image_tag "cards/c3.png", :class => "card" %>
-<%#= image_tag "cards/c4.png", :class => "card" %>
-<%#= image_tag "cards/c5.png", :class => "card" %>
-<%#= image_tag "cards/c6.png", :class => "card" %>
-<%#= image_tag "cards/c7.png", :class => "card" %>
-<%#= image_tag "cards/cj.png", :class => "card" %>
-<%#= image_tag "cards/cq.png", :class => "card" %>
-<%#= image_tag "cards/ck.png", :class => "card" %>
-<%#= image_tag "cards/h1.png", :class => "card" %>
-<%#= image_tag "cards/h2.png", :class => "card" %>
-<%#= image_tag "cards/h3.png", :class => "card" %>
-<%#= image_tag "cards/h4.png", :class => "card" %>
-<%#= image_tag "cards/h5.png", :class => "card" %>
-<%#= image_tag "cards/h6.png", :class => "card" %>
-<%#= image_tag "cards/h7.png", :class => "card" %>
-<%#= image_tag "cards/hj.png", :class => "card" %>
-<%#= image_tag "cards/hq.png", :class => "card" %>
-<%#= image_tag "cards/hk.png", :class => "card" %>
-<%#= image_tag "cards/s1.png", :class => "card" %>
-<%#= image_tag "cards/s2.png", :class => "card" %>
-<%#= image_tag "cards/s3.png", :class => "card" %>
-<%#= image_tag "cards/s4.png", :class => "card" %>
-<%#= image_tag "cards/s5.png", :class => "card" %>
-<%#= image_tag "cards/s6.png", :class => "card" %>
-<%#= image_tag "cards/s7.png", :class => "card" %>
-<%#= image_tag "cards/sj.png", :class => "card" %>
-<%#= image_tag "cards/sq.png", :class => "card" %>
-<%#= image_tag "cards/sk.png", :class => "card" %>
-<%#= image_tag "cards/d1.png", :class => "card" %>
-<%#= image_tag "cards/d2.png", :class => "card" %>
-<%#= image_tag "cards/d3.png", :class => "card" %>
-<%#= image_tag "cards/d4.png", :class => "card" %>
-<%#= image_tag "cards/d5.png", :class => "card" %>
-<%#= image_tag "cards/d6.png", :class => "card" %>
-<%#= image_tag "cards/d7.png", :class => "card" %>
-<%#= image_tag "cards/dj.png", :class => "card" %>
-<%#= image_tag "cards/dq.png", :class => "card" %>
-<%#= image_tag "cards/dk.png", :class => "card" %>
+<%#= image_tag "cards/c1.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/c2.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/c3.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/c4.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/c5.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/c6.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/c7.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/cj.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/cq.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/ck.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/h1.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/h2.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/h3.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/h4.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/h5.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/h6.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/h7.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/hj.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/hq.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/hk.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/s1.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/s2.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/s3.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/s4.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/s5.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/s6.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/s7.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/sj.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/sq.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/sk.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/d1.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/d2.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/d3.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/d4.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/d5.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/d6.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/d7.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/dj.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/dq.png", :style => "display:none", :class => "card" %>
+<%#= image_tag "cards/dk.png", :style => "display:none", :class => "card" %>
 
 -->
 
