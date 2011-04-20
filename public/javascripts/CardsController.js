@@ -52,15 +52,10 @@ var CardsController = Class.create({
                     obj.setStyle({left: '', top: '', position: 'relative'})
                     $(container).insert(obj);
                     new Effect.Appear(obj);
-
-                    
             }});
-
-
         }.bind(this))
     },
 
-    
     _calculateXForHorizontal : function(index) {
         return 60*index;
     },
@@ -68,7 +63,4 @@ var CardsController = Class.create({
     _calculateYForVertical : function(index) {
         return 30*index;
     }
-
-
 })
-
