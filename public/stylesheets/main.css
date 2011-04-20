@@ -57,19 +57,19 @@ body {
     width:960px;
 }
 
-#card-baixo{
+.card.baixo{
     margin-right: -50px
 }
 
-#card-cima{
+.card.topo{
     margin-right: -50px
 }
 
-#card-esquerda{
+.card.esquerda{
     margin-bottom: -50px
 }
 
-#card-direita{
+.card.direita{
     margin-bottom: -50px
 }
 
