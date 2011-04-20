@@ -1,4 +1,4 @@
-root { 
+root {
     display: block;
 }
 
@@ -15,7 +15,7 @@ body {
 .jogador_horizontal {
     width: 96px;
     height:600px;
-    float:left;	
+    float:left;
     top:150px;
     position: absolute;
 }
@@ -43,14 +43,14 @@ body {
 }
 
 .mesa{
-    background: #036602;
+    background: url("/images/mesa.png") repeat scroll 0 0 #036602;
     height: 380px;
     left: 100px;
     position: absolute;
     top: 100px;
     width: 580px;
     z-index: 1;
-    border:double 10px #0e520b;
+    border:double 10px #074005;
     -moz-border-radius: 40px;
     -webkit-border-radius: 40px;
     border-radius: 40px;
@@ -60,10 +60,15 @@ body {
 
 }
 
-#logo {
+#logo_container {
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    background: url("/images/wES2suecalogo2.png") no-repeat scroll 0 0 transparent;
+    height: 120px;
     position: absolute;
-    top: 10px;
-    left: 20px;
+    width: 280px;
+
 }
 
 .container{
