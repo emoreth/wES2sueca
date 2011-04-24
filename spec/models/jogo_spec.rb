@@ -36,5 +36,12 @@ describe Jogo do
         end
       end
     end
+
+    it "deve escolher jogador aleatoriamente" do
+      @jogo.should respond_to :sortear_jogador
+      jogador = @jogo.sortear_jogador
+      jogador.should be_a Jogador
+      jogador.should_not be @jogo.sortear_jogador
+    end
   end
 end

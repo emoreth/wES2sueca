@@ -15,4 +15,8 @@ class Jogo
       end
     end
   end
+
+  def sortear_jogador
+    duplas.sample.jogadores.sample
+  end
 end

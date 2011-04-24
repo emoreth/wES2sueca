@@ -32,4 +32,5 @@ describe Dupla do
     end
 
   end
+  
 end
