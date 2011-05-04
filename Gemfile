@@ -22,9 +22,6 @@ group :development, :test do
   gem 'heroku'
 end
 
-# Use unicorn as the web server
-# gem 'unicorn'
-
 # Deploy with Capistrano
 # gem 'capistrano'
 
