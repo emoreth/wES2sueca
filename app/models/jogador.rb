@@ -3,16 +3,16 @@ class Jogador
   attr_accessor :cartas
 
   def initialize
-    self.cartas = []
+    @cartas = []
   end
 
   def receber_cartas(cartas)
-    raise ArgumentError, "jogador deve ter no máximo 10 cartas" if (self.cartas.length + cartas.length) > 10
-                self.cartas += cartas
+    raise ArgumentError, "jogador deve ter no máximo 10 cartas" if (@cartas.length + cartas.length) > 10
+                @cartas += cartas
       end
 
   def jogar_carta(carta)
-    raise ArgumentError, "não há cartas para jogar" if self.cartas.empty?
-    self.cartas.delete carta
+    raise ArgumentError, "não há cartas para jogar" if @cartas.empty?
+    @cartas.delete carta
   end
 end

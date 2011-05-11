@@ -6,12 +6,12 @@ class Carta
   attr_accessor :naipe, :numero
 
   def initialize(attributes = {})
-    self.naipe = attributes[:naipe]
-    self.numero = attributes[:numero]
+    @naipe = attributes[:naipe]
+    @numero = attributes[:numero]
   end
 
   def ==(other)
-    self.naipe == other.naipe &&
-      self.numero == other.numero
+    @naipe == other.naipe &&
+      @numero == other.numero
   end
 end
