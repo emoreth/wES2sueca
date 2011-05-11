@@ -44,4 +44,22 @@ describe Carta do
     end
   end
 
+  describe "Comportamentos:" do
+
+    it "deve saber o nome do arquivo correspondente" do
+      carta = Carta.new :naipe => "ouros", :numero => "1"
+      carta.should respond_to :nome_arquivo
+      carta.nome_arquivo.should == "d1"
+
+      carta = Carta.new :naipe => "paus", :numero => "J"
+      carta.nome_arquivo.should == "cj"
+
+      carta = Carta.new :naipe => "espadas", :numero => "Q"
+      carta.nome_arquivo.should == "sq"
+
+      carta = Carta.new :naipe => "copas", :numero => "K"
+      carta.nome_arquivo.should == "hk"
+    end
+  end
+
 end
