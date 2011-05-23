@@ -1,6 +1,6 @@
 class Baralho
 
-  attr_accessor :cartas
+  attr_reader :cartas
 
   def initialize
     @cartas = []
