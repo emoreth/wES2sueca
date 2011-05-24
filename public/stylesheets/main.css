@@ -83,6 +83,17 @@ body {
 
 }
 
+#logo_container {
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    background: url("/images/wES2suecalogo2.png") no-repeat scroll 0 0 transparent;
+    height: 120px;
+    position: absolute;
+    width: 280px;
+
+}
+
 .container{
     margin: 0 auto;
     position: relative;

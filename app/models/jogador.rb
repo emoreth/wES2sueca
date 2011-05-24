@@ -9,10 +9,8 @@ class Jogador
   def receber_cartas(cartas)
     raise ArgumentError, "jogador deve ter no máximo 10 cartas" if (@cartas.length + cartas.length) > 10
     @cartas += cartas
-		@cartas.sort!
+    @cartas.sort!
   end
-
-
 
   def jogar_carta(carta)
     raise ArgumentError, "não há cartas para jogar" if @cartas.empty?

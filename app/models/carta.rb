@@ -15,15 +15,15 @@ class Carta
       @numero == other.numero
   end
 
-	def <=> other
-		if @naipe != other.naipe
-			@naipe<=>other.naipe
-		elsif self.valor != other.valor
-			self.valor<=>other.valor
-		else
-			@numero <=> other.numero
-		end
-	end
+  def <=> other
+    if @naipe != other.naipe
+      @naipe<=>other.naipe
+    elsif self.valor != other.valor
+      self.valor<=>other.valor
+    else
+      @numero <=> other.numero
+    end
+  end
 
   def nome_arquivo
     arquivo = case @naipe

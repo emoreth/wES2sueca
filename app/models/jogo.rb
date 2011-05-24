@@ -1,6 +1,6 @@
 class Jogo
 
-  attr_reader 	:duplas
+  attr_reader :duplas
   attr_reader   :primeiro_jogador
   attr_reader   :jogador_atual
 
