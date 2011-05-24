@@ -9,6 +9,7 @@ class Baralho
         @cartas << Carta.new( :naipe => naipe, :numero => numero )
       end
     end
+  end
 
   def comprar
     @cartas.pop 10
