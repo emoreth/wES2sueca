@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
 
 		@jogo=Jogo.new @dupla1, @dupla2
 		@jogo.distribuir_cartas	
+    @jogo.escolher_primeiro
+
 	end
+
+  def proximo_jogador
+    @jogo.proximo_jogador
+  end
 
 end

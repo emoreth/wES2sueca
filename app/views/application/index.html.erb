@@ -28,13 +28,17 @@
 </div>
 
 <script type="text/javascript">
-	$$('.bottom').each(
-		function(el) {
-			new Draggable(el);
-	  })  
+  $$('.bottom').each(
+    function(el) {
+      new Draggable(el);
+    })
   
   Droppables.add('table', { 
     accept: 'card',
-		hoverclass: 'hover'
+    hoverclass: 'hover',
+    onDrop: function(){
+      $('table').highlight();
+      new Ajax.request('proximojogador')
+    }
   });  
 </script>
