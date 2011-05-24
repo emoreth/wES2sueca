@@ -37,22 +37,47 @@ var CardsController = Class.create({
 
     _deliverTop : function()
     {
-        this._deliverCards('.top', 'topDeck', this._calculateXForHorizontal, function(){return -100})
-        this._deliverCards('.right', 'rightDeck', function(){return 604}, this._calculateYForVertical)
-        this._deliverCards('.bottom', 'bottomDeck', this._calculateXForHorizontal, function(){return 400})
-        this._deliverCards('.left', 'leftDeck', function(){return -100}, this._calculateYForVertical)
+        this._deliverCards('.top', 'topDeck', this._calculateXForHorizontal, function(){
+            return -100
+        })
+        this._deliverCards('.right', 'rightDeck', function(){
+            return 604
+        }, this._calculateYForVertical)
+        this._deliverCards('.bottom', 'bottomDeck', this._calculateXForHorizontal, function(){
+            return 400
+        })
+        this._deliverCards('.left', 'leftDeck', function(){
+            return -100
+        }, this._calculateYForVertical)
     },
 
     _deliverCards : function(selector, container, xPosFunction, yPosFunction) {
         this.table.select(selector).each(function(obj, index) {
 
-            new Effect.Move(obj, {x: xPosFunction(index), y: yPosFunction(index), mode: 'absolute', queue: {scope: ('top_'+index)}});
-            new Effect.Fade(obj, {queue: {position: 'end', scope: ('top_'+index)}, afterFinish : function(evt){
+            new Effect.Move(obj, {
+                x: xPosFunction(index),
+                y: yPosFunction(index),
+                mode: 'absolute',
+                queue: {
+                    scope: ('top_'+index)
+                }
+            });
+            new Effect.Fade(obj, {
+                queue: {
+                    position: 'end',
+                    scope: ('top_'+index)
+                },
+                afterFinish : function(evt){
                     var obj = evt.element;
-                    obj.setStyle({left: '', top: '', position: 'relative'})
+                    obj.setStyle({
+                        left: '',
+                        top: '',
+                        position: 'relative'
+                    })
                     $(container).insert(obj);
                     new Effect.Appear(obj);
-            }});
+                }
+            });
         }.bind(this))
     },
 
@@ -62,5 +87,37 @@ var CardsController = Class.create({
 
     _calculateYForVertical : function(index) {
         return 30*index;
+    },
+
+    selected : function(el)
+    {
+        return el.getAttribute('data-selected') ? true : false;
+    },
+
+    select : function(el)
+    {
+        new Effect.Move(el, {
+            x: 0,
+            y: -30,
+            position : 'relative'
+        })
+        el.setAttribute('data-selected', 'true');
+    },
+
+    deselect : function(el) {
+        if(this.selected(el))
+        {
+
+            new Effect.Move(el, {
+                x: 0,
+                y: 30,
+                position : 'relative'
+            })
+            el.setAttribute('data-selected', null);
+        }
+    },
+
+    throwCard : function(el) {
+        console.log('throwCard')
     }
 })
