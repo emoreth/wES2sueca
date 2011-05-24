@@ -29,18 +29,52 @@ describe Carta do
 
   describe "Atributos:" do
 
-    it "deve ter um naipe" do
-      carta = Carta.new
-      carta.should respond_to :naipe
-      carta.naipe = Carta::NAIPES.first
-      carta.naipe.should == Carta::NAIPES.first
+    it "deve ter um número" do
+      carta = Carta.new(:numero => Carta::NUMEROS.first)
+      carta.should respond_to :numero
+      carta.numero.should == Carta::NUMEROS.first
     end
 
     it "deve ter um naipe" do
-      carta = Carta.new
-      carta.should respond_to :numero
-      carta.numero = Carta::NUMEROS.first
-      carta.numero.should == Carta::NUMEROS.first
+      carta = Carta.new(:naipe => Carta::NAIPES.first)
+      carta.should respond_to :naipe
+      carta.naipe.should == Carta::NAIPES.first
+    end
+  end
+
+  describe "Comportamentos:" do
+
+    it "deve saber o nome do arquivo correspondente" do
+      carta = Carta.new :naipe => "ouros", :numero => "1"
+      carta.should respond_to :nome_arquivo
+      carta.nome_arquivo.should == "d1"
+
+      carta = Carta.new :naipe => "paus", :numero => "J"
+      carta.nome_arquivo.should == "cj"
+
+      carta = Carta.new :naipe => "espadas", :numero => "Q"
+      carta.nome_arquivo.should == "sq"
+
+      carta = Carta.new :naipe => "copas", :numero => "K"
+      carta.nome_arquivo.should == "hk"
+    end
+
+    it "deve saber seu valor" do
+      Carta.new.should respond_to :valor
+      carta = Carta.new :naipe => "ouros", :numero => "A"
+      carta.valor.should == 11
+      carta = Carta.new :naipe => "ouros", :numero => "7"
+      carta.valor.should == 10
+      carta = Carta.new :naipe => "ouros", :numero => "K"
+      carta.valor.should == 4
+      carta = Carta.new :naipe => "ouros", :numero => "J"
+      carta.valor.should == 3
+      carta = Carta.new :naipe => "ouros", :numero => "Q"
+      carta.valor.should == 2
+      for i in 2..6 do
+      carta = Carta.new :naipe => "ouros", :numero => i.to_s
+      carta.valor.should == 1
+      end
     end
   end
 

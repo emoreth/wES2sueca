@@ -1,22 +1,18 @@
 class Baralho
 
-  attr_accessor :cartas
+  attr_reader :cartas
 
   def initialize
-    self.cartas = []
+    @cartas = []
     Carta::NAIPES.each do |naipe|
       Carta::NUMEROS.each do |numero|
-        self.cartas << Carta.new( :naipe => naipe, :numero => numero )
+        @cartas << Carta.new( :naipe => naipe, :numero => numero )
       end
     end
-  end
-
-  def embaralhar
-    self.cartas.shuffle!
-    self
+		@cartas.shuffle!
   end
 
   def comprar
-    self.cartas.pop 10
+    @cartas.pop 10
   end
 end
