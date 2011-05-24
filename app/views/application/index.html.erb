@@ -3,21 +3,21 @@
 
   <div class="mesa" id="table">
 
-		<% @jogador1.cartas.each do |c| %>
-			<%= image_tag "cards/#{c.nome_arquivo}.png", :style => "display:none", :class => "card bottom" %>
-		<% end %>
+    <% @jogador1.cartas.each do |c| %>
+      <%= image_tag "cards/#{c.nome_arquivo}.png", :style => "display:none", :class => "card bottom" %>
+    <% end %>
 
-		<% @jogador2.cartas.each do |c| %>
-			<%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left" %>
-		<% end %>
+    <% @jogador2.cartas.each do |c| %>
+      <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left" %>
+    <% end %>
 
-		<% @jogador3.cartas.each do |c| %>
-			<%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top" %>
-		<% end %>
+    <% @jogador3.cartas.each do |c| %>
+      <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top" %>
+    <% end %>
 
-		<% @jogador4.cartas.each do |c| %>
-			<%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right" %>
-		<% end %>
+    <% @jogador4.cartas.each do |c| %>
+      <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right" %>
+    <% end %>
 
   </div>
 
@@ -28,13 +28,31 @@
 </div>
 
 <script type="text/javascript">
-	$$('.bottom').each(
-		function(el) {
-			new Draggable(el);
-	  })  
+
+  Event.observe(document, 'dom:loaded', function(){
+
+    $$('.card').each(function(obj){
+      obj.observe('draggesture', function(e){
+        e.stop();
+      })
+    });
+
+    $$('.bottom').invoke('observe', 'click', function(evt){
+      var _el = evt.element();
+      if(CC.selected(_el))
+      {
+        CC.throwCard(_el)
+      }
+      else
+      {
+        var _container = $('bottomDeck');
+        _container.select('.card').each(function(e){
+          CC.deselect(e);
+        })
+        CC.select(_el);
+      }
+    })
+  })
   
-  Droppables.add('table', { 
-    accept: 'card',
-		hoverclass: 'hover'
-  });  
+  
 </script>
