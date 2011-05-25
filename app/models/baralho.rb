@@ -9,6 +9,7 @@ class Baralho
         @cartas << Carta.new( :naipe => naipe, :numero => numero )
       end
     end
+    @cartas.shuffle!
   end
 
   def comprar

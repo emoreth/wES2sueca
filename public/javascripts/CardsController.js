@@ -107,17 +107,26 @@ var CardsController = Class.create({
     deselect : function(el) {
         if(this.selected(el))
         {
-
             new Effect.Move(el, {
                 x: 0,
                 y: 30,
                 position : 'relative'
             })
-            el.setAttribute('data-selected', null);
+            el.removeAttribute('data-selected');
         }
     },
 
-    throwCard : function(el) {
-        console.log('throwCard')
+    throwCard : function(el) {        
+        new Effect.Move(el, {
+                x: 0,
+                y: -100,
+                position : 'absolute'
+            });        
+        $('table').insert(el);
+        el.removeAttribute('data-selected');
+        el.setStyle({
+            top : '250px',
+            left: '250px'
+        })
     }
 })
