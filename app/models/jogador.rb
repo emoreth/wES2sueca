@@ -16,5 +16,7 @@ class Jogador
     raise ArgumentError, "não há cartas para jogar" if @cartas.empty?
     @cartas.delete carta
   end
+
+
 end
 

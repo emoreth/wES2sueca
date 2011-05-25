@@ -7,16 +7,16 @@
       <%= image_tag "cards/#{c.nome_arquivo}.png", :style => "display:none", :class => "card bottom" %>
     <% end %>
 
-    <% @jogador2.cartas.each do |c| %>
-      <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left" %>
+    <% @jogador2.cartas.each_with_index do |c, index| %>
+      <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left", "data-card_number" => index %>
     <% end %>
 
-    <% @jogador3.cartas.each do |c| %>
-      <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top" %>
+    <% @jogador3.cartas.each_with_index do |c, index| %>
+      <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top", "data-card_number" => index %>
     <% end %>
 
-    <% @jogador4.cartas.each do |c| %>
-      <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right" %>
+    <% @jogador4.cartas.each_with_index do |c, index| %>
+      <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right", "data-card_number" => index %>
     <% end %>
 
   </div>

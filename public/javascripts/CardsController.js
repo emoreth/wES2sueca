@@ -17,6 +17,10 @@ var CardsController = Class.create({
         this.table = $("table");
         if(!this.table)
             throw Error('O a mesa não foi encontrada. (#table)');
+
+        this.humanPlayerNumber = 0;
+        this.currentPlayer = 0;
+        this.borderWidth = 20;
     },
 
     randomizeCards : function()
@@ -120,13 +124,76 @@ var CardsController = Class.create({
         new Effect.Move(el, {
                 x: 0,
                 y: -100,
-                position : 'absolute'
+                position : 'absolute',
+                afterFinish : function(evt){
+                    var _card = evt.element;
+                    var _tablePos = this.table.cumulativeOffset();
+                    var _cardPos = _card.cumulativeOffset();
+
+                    this.table.insert(
+                        _card.setStyle({
+                            top : (_cardPos.top - _tablePos.top - this.borderWidth) + "px",
+                            left : (_cardPos.left - _tablePos.left - this.borderWidth) + "px",
+                            position : "relative"
+                        })
+                    );
+                    _card.absolutize();
+
+                    this.nextMove();
+                }.bind(this)
             });        
-        $('table').insert(el);
+
+
+        this.setCurrentCard(el.getAttribute("src").match(/(\w{2}).png/)[1]);
+
         el.removeAttribute('data-selected');
-        el.setStyle({
-            top : '250px',
-            left: '250px'
-        })
+
+        //el.setStyle({
+        //    top : '250px',
+        //    left: '250px'
+        //})
+    },
+
+    setCurrentCard : function(value) {
+        this.currentCard = value;
+    },
+
+    nextMove: function(){
+        params = {};
+
+        if(this.isHumanPlayer())
+        {
+            params.human_card = this.currentCard;
+        }
+
+        this._nextPlayer();
+
+        new Ajax.Request("proxima_jogada", { parameters : params, onSuccess : this._moveHandler })
+    },
+
+    _moveHandler : function(r) {
+        //console.log(r.responseJSON)
+    },
+
+    setFirstPlayer: function(playerNumber)
+    {
+        if(!Object.isNumber(playerNumber) || playerNumber == NaN) {
+            throw Error('O jogador atual deve ser representado por um número');
+        }
+
+        this.currentPlayer = playerNumber;
+    },
+
+    _nextPlayer : function() {
+        this.currentPlayer++;
+        if(this.currentPlayer >= 4) {
+            this.currentPlayer = 0;
+        }
+    },
+
+    isHumanPlayer : function() {
+        return this.currentPlayer == this.humanPlayerNumber;
     }
-})
+
+
+});

@@ -2,6 +2,8 @@ WES2sueca::Application.routes.draw do
 
   root :to => "application#index"
 
+  post "proxima_jogada" => "application#proxima_jogada"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
