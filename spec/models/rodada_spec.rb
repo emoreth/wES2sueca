@@ -50,5 +50,21 @@ describe Rodada do
       end
       rodada.vencedor.should be jogadores[3]
     end
+
+    it "deve saber se está completa" do
+      @rodada.should respond_to :completa?
+      @rodada.should_not be_completa
+
+      4.times do
+        @rodada.nova_jogada(
+          Jogada.new(
+            :jogador => Jogador.new,
+            :carta => Carta.new(:naipe => "ouros", :numero => "A")
+          )
+        )
+      end
+      
+      @rodada.should be_completa
+    end
   end
 end

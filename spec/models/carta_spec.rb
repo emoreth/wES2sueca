@@ -73,8 +73,18 @@ describe Carta do
       carta.valor.should == 2
       for i in 2..6 do
       carta = Carta.new :naipe => "ouros", :numero => i.to_s
-      carta.valor.should == 1
+      carta.valor.should == 0
       end
+    end
+
+    it "deve saber ser jogada" do
+      carta = Carta.new :naipe => "ouros", :numero => "A"
+      carta.should respond_to :jogar!
+      jogador = Jogador.new
+      jogador.receber_cartas [carta]
+
+      carta.jogar!.should be carta
+      jogador.cartas.should_not include carta
     end
   end
 

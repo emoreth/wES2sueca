@@ -1,6 +1,7 @@
 class Jogador
 
   attr_reader :cartas
+  attr_accessor :dupla
 
   def initialize
     @cartas = []
@@ -9,6 +10,7 @@ class Jogador
   def receber_cartas(cartas)
     raise ArgumentError, "jogador deve ter no máximo 10 cartas" if (@cartas.length + cartas.length) > 10
     @cartas += cartas
+    cartas.each { |carta| carta.jogador = self }
     @cartas.sort!
   end
 

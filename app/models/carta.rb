@@ -4,6 +4,7 @@ class Carta
   NUMEROS = ["A", "7", "K", "J", "Q", "6", "5", "4", "3", "2"]
   
   attr_reader :naipe, :numero
+  attr_accessor :jogador
 
   def initialize(attributes = {})
     @naipe = attributes[:naipe]
@@ -52,5 +53,9 @@ class Carta
     when '2'..'6' then 0
     else raise "Número inválido: #{@numero}"
     end
+  end
+
+  def jogar!
+    @jogador.jogar_carta self
   end
 end

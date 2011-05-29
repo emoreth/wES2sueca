@@ -12,7 +12,7 @@ describe Dupla do
 
   describe "Atributos:" do
 
-    before :all do
+    before :each do
       @dupla = Dupla.new Jogador.new, Jogador.new
     end
 
@@ -31,6 +31,12 @@ describe Dupla do
       @dupla.pontos_do_jogo.should be_zero
     end
 
+    it "ao incluir um jogador, deve marcá-lo como sendo parta da dupla" do
+      jogador = Jogador.new
+      jogador.should respond_to :dupla
+      dupla = Dupla.new jogador, Jogador.new
+      jogador.dupla.should be dupla
+    end
   end
   
 end

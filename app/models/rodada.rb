@@ -23,4 +23,8 @@ class Rodada
 
     jogador
   end
+
+  def completa?
+    @jogadas.length == 4
+  end
 end

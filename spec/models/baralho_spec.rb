@@ -17,14 +17,6 @@ describe Baralho do
       end
     end
 
-    it "deve saber embaralhar suas cartas" do
-
-      @baralho.should respond_to :embaralhar
-      copia_cartas = @baralho.cartas.dup
-      @baralho.embaralhar
-      @baralho.cartas.should_not == copia_cartas
-    end
-
     it "deve saber comprar carta" do
 
       @baralho.should have(40).cartas

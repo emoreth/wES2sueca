@@ -24,6 +24,14 @@ describe Jogo do
       @jogo.should respond_to :duplas
       @jogo.duplas.should have(2).duplas
     end
+
+    it "deve ter partidas" do
+      @jogo.should respond_to :partidas
+    end
+
+    it "deve ter partida atual"  do
+      @jogo.should respond_to :partida_atual
+    end
   end
 
   describe "Comportamento:" do
@@ -69,6 +77,32 @@ describe Jogo do
       primeiro = @jogo.escolher_primeiro
       pos = @jogadores.index primeiro
       4.times { |i| @jogadores[(pos + i + 1) % 4].should be @jogo.proximo_jogador }
+    end
+
+    it "deve saber o trunfo da partida" do
+      @jogo.should respond_to :trunfo
+      @jogo.distribuir_cartas
+      trunfo = @jogo.trunfo
+      trunfo.should be_a Carta
+      @jogo.primeiro_jogador.cartas.should include trunfo
+    end
+
+    it "deve poder receber nova jogada" do
+      @jogo.should respond_to :nova_jogada
+      jogada = Jogada.new :jogador => @jogadores.first, :carta => Carta.new(:naipe => "ouros", :numero => "A")
+      @jogo.nova_jogada jogada
+      @jogo.partida_atual.rodada_atual.jogadas.should include jogada
+    end
+    
+    it "deve saber criar nova partida" do
+      @jogo.should respond_to :nova_partida
+      partida = @jogo.nova_partida
+      @jogo.partidas.should include partida
+    end
+
+    it "nova partida deve ser a partida atual" do
+      partida = @jogo.nova_partida
+      @jogo.partida_atual.should be partida
     end
   end
 end
