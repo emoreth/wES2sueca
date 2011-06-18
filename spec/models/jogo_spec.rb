@@ -9,12 +9,48 @@ describe Jogo do
     @jogo = Jogo.new dupla1, dupla2
   end
 
+  describe "Constantes:" do
+    it "deve ter dificuldade fácil" do
+      Jogo.constants.should include "FACIL"
+      Jogo::FACIL.should == "Fácil"
+    end
+
+    it "deve ter dificuldade normal" do
+      Jogo.constants.should include "NORMAL"
+      Jogo::NORMAL.should == "Normal"
+    end
+
+    it "deve ter dificuldade difícil" do
+      Jogo.constants.should include "DIFICIL"
+      Jogo::DIFICIL.should == "Difícil"
+    end
+
+    it "deve ter dificuldade expert" do
+      Jogo.constants.should include "EXPERT"
+      Jogo::EXPERT.should == "Expert"
+    end
+
+    it "deve ter lista de dificuldades" do
+      Jogo.constants.should include "DIFICULDADES"
+      Jogo::DIFICULDADES.should include Jogo::FACIL
+      Jogo::DIFICULDADES.should include Jogo::NORMAL
+      Jogo::DIFICULDADES.should include Jogo::DIFICIL
+      Jogo::DIFICULDADES.should include Jogo::EXPERT
+    end
+
+  end
+
   describe "Validações:" do
 
     it "deve ser criado com duas duplas" do
       lambda{ Jogo.new }.should raise_error(ArgumentError, "wrong number of arguments (0 for 2)")
       dupla = Dupla.new(Jogador.new, Jogador.new)
       lambda{ Jogo.new dupla, dupla }.should_not raise_error(ArgumentError, "wrong number of arguments (0 for 2)")
+    end
+
+    it "deve ter dificuldade válida" do
+      lambda{ @jogo.dificuldade = Jogo::FACIL }.should_not raise_error(ArgumentError, "dificuldade deve ser válida")
+      lambda{ @jogo.dificuldade = "dificuldade inválida" }.should raise_error(ArgumentError, "dificuldade deve ser válida")
     end
   end
 
@@ -31,6 +67,10 @@ describe Jogo do
 
     it "deve ter partida atual"  do
       @jogo.should respond_to :partida_atual
+    end
+
+    it "deve ter nível de dificuldade" do
+      @jogo.should respond_to :dificuldade
     end
   end
 

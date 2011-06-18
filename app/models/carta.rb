@@ -4,7 +4,7 @@ class Carta
   NUMEROS = ["A", "7", "K", "J", "Q", "6", "5", "4", "3", "2"]
   
   attr_reader :naipe, :numero
-  attr_accessor :jogador
+  attr_accessor :jogador, :id
 
   def initialize(attributes = {})
     @naipe = attributes[:naipe]
@@ -12,8 +12,12 @@ class Carta
   end
 
   def ==(other)
-    @naipe == other.naipe &&
-      @numero == other.numero
+    if other.class == Carta
+      @naipe == other.naipe &&
+        @numero == other.numero
+    else
+      @id == other
+    end
   end
 
   def <=> other

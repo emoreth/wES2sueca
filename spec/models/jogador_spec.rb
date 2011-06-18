@@ -58,5 +58,10 @@ describe Jogador do
       @jogador.receber_cartas [@carta]
       @carta.jogador.should be @jogador
     end
+
+    it "deve saber que não é IA" do
+      @jogador.should respond_to :ia?
+      @jogador.ia?.should be_false
+    end
   end
 end

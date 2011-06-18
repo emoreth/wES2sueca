@@ -6,6 +6,14 @@ class Jogo
   attr_reader :trunfo
   attr_reader :partidas
   attr_reader :partida_atual
+  attr_reader :dificuldade
+
+  # DIFICULDADES
+  FACIL   = "Fácil"
+  NORMAL  = "Normal"
+  DIFICIL = "Difícil"
+  EXPERT  = "Expert"
+  DIFICULDADES = [FACIL, NORMAL, DIFICIL, EXPERT]
 
   def initialize(dupla1, dupla2)
     @duplas = [dupla1, dupla2]
@@ -52,5 +60,10 @@ class Jogo
       rodada = @partida_atual.nova_rodada
     end
     rodada.nova_jogada(jogada)
+  end
+
+  def dificuldade=(nivel)
+    raise ArgumentError, "dificuldade deve ser válida" unless DIFICULDADES.include? nivel
+    self[:dificuldade] = nivel
   end
 end

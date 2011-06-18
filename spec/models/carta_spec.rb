@@ -40,6 +40,13 @@ describe Carta do
       carta.should respond_to :naipe
       carta.naipe.should == Carta::NAIPES.first
     end
+
+    it "deve ter um id" do
+      carta = Carta.new
+      carta.should respond_to :id
+      carta.id = 1
+      carta.id.should == 1
+    end
   end
 
   describe "Comportamentos:" do
@@ -85,6 +92,20 @@ describe Carta do
 
       carta.jogar!.should be carta
       jogador.cartas.should_not include carta
+    end
+
+
+    it "deve saber se é igual à outra carta" do
+      carta = Carta.new :naipe => "ouros", :numero => "A"
+      carta.==(Carta.new(:naipe => "ouros", :numero => "A")).should be_true
+      carta.==(Carta.new(:naipe => "ouros", :numero => "K")).should be_false
+    end
+
+    it "deve saber se é igual à um id" do
+      carta = Carta.new
+      carta.id = 1
+      carta.==(1).should be_true
+      carta.==(2).should be_false
     end
   end
 
