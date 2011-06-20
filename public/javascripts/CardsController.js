@@ -163,11 +163,16 @@ var CardsController = Class.create({
 
         this._nextPlayer();
 
-        new Ajax.Request("proxima_jogada", { parameters : params, onSuccess : this._moveHandler })
+        new Ajax.Request("proxima_jogada", {parameters : params, onSuccess : this._moveHandler.bind(this) })
     },
 
     _moveHandler : function(r) {
-        //console.log(r.responseJSON)
+        if(!this.isHumanPlayer()) {
+            console.log(r.responseJSON.computador);
+            var _nextCard = $$("img[data-card_number='"+r.responseJSON.computador.numero_carta+"']").first();
+            console.log(_nextCard);
+            this.throwCard(_nextCard);
+        }
     },
 
     setFirstPlayer: function(playerNumber)
