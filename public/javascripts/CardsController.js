@@ -138,13 +138,11 @@ var CardsController = Class.create({
                         })
                     );
                     _card.absolutize();
-
+                    this.setCurrentCard(el);
                     this.nextMove();
                 }.bind(this)
             });        
-
-
-        this.setCurrentCard(el.getAttribute("src").match(/(\w{2}).png/)[1]);
+        
 
         el.removeAttribute('data-selected');
 
@@ -155,16 +153,13 @@ var CardsController = Class.create({
     },
 
     setCurrentCard : function(value) {
-        this.currentCard = value;
+        this.currentCard = $(value);
     },
 
     nextMove: function(){
-        params = {};
-
-        if(this.isHumanPlayer())
-        {
-            params.human_card = this.currentCard;
-        }
+        params = {
+            numero_carta : (this.currentCard ? this.currentCard.getAttribute('data-card_number') : null)
+        };
 
         this._nextPlayer();
 
