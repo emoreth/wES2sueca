@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   def proxima_jogada
 
     info = nil
-    computador = true # Usar funçao de selecao
+    computador = true
     if computador
       info = {}
       info[:numero_jogador] = 1
