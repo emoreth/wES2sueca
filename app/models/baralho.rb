@@ -10,6 +10,7 @@ class Baralho
       end
     end
     @cartas.shuffle!
+    @cartas.each_with_index { |carta,index| carta.id = index.to_s }
   end
 
   def comprar

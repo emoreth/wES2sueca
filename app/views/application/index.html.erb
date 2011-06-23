@@ -4,19 +4,19 @@
   <div class="mesa" id="table">
 
     <% @jogador1.cartas.each do |c| %>
-      <%= image_tag "cards/#{c.nome_arquivo}.png", :style => "display:none", :class => "card bottom" %>
+      <%= image_tag "cards/#{c.nome_arquivo}.png", :style => "display:none", :class => "card bottom", "data-card_number" => c.id %>
     <% end %>
 
-    <% @jogador2.cartas.each_with_index do |c, index| %>
-      <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left", "data-card_number" => index %>
+    <% @jogador2.cartas.each do |c| %>
+      <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card left", "data-card_number" => c.id %>
     <% end %>
 
-    <% @jogador3.cartas.each_with_index do |c, index| %>
-      <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top", "data-card_number" => index %>
+    <% @jogador3.cartas.each do |c| %>
+      <%= image_tag "cards/b1fv.png", :style => "display:none", :class => "card top", "data-card_number" => c.id %>
     <% end %>
 
-    <% @jogador4.cartas.each_with_index do |c, index| %>
-      <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right", "data-card_number" => index %>
+    <% @jogador4.cartas.each do |c| %>
+      <%= image_tag "cards/b1fh.png", :style => "display:none", :class => "card right", "data-card_number" => c.id %>
     <% end %>
 
   </div>

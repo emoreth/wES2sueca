@@ -138,13 +138,11 @@ var CardsController = Class.create({
                         })
                     );
                     _card.absolutize();
-
+                    this.setCurrentCard(el);
                     this.nextMove();
                 }.bind(this)
             });        
-
-
-        this.setCurrentCard(el.getAttribute("src").match(/(\w{2}).png/)[1]);
+        
 
         el.removeAttribute('data-selected');
 
@@ -155,24 +153,26 @@ var CardsController = Class.create({
     },
 
     setCurrentCard : function(value) {
-        this.currentCard = value;
+        this.currentCard = $(value);
     },
 
     nextMove: function(){
-        params = {};
-
-        if(this.isHumanPlayer())
-        {
-            params.human_card = this.currentCard;
-        }
+        params = {
+            numero_carta : (this.currentCard ? this.currentCard.getAttribute('data-card_number') : null)
+        };
 
         this._nextPlayer();
 
-        new Ajax.Request("proxima_jogada", { parameters : params, onSuccess : this._moveHandler })
+        new Ajax.Request("proxima_jogada", {parameters : params, onSuccess : this._moveHandler.bind(this) })
     },
 
     _moveHandler : function(r) {
-        //console.log(r.responseJSON)
+        if(!this.isHumanPlayer()) {
+            console.log(r.responseJSON.computador);
+            var _nextCard = $$("img[data-card_number='"+r.responseJSON.computador.numero_carta+"']").first();
+            console.log(_nextCard);
+            this.throwCard(_nextCard);
+        }
     },
 
     setFirstPlayer: function(playerNumber)

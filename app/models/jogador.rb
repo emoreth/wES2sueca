@@ -19,6 +19,8 @@ class Jogador
     @cartas.delete carta
   end
 
-
+  def ia?
+    false
+  end
 end
 
