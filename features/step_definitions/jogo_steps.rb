@@ -15,9 +15,9 @@ VIRADA_PARA_BAIXO = {
 Então /^eu devo ver as cartas (?:de|da) ((?:baixo|esquerda|cima|direita)) viradas para ((?:cima|baixo))$/ do |lado, virada|
   all(".card #{LADO[lado]}").each do |carta|
     if virada == "baixo"
-      carta["src"].should =~ VIRADA_PARA_BAIXO[lado]
+      carta["src"].should match VIRADA_PARA_BAIXO[lado]
     else
-      carta["src"].should_not =~ VIRADA_PARA_BAIXO[lado]
+      carta["src"].should_not match VIRADA_PARA_BAIXO[lado]
     end
   end
 end
