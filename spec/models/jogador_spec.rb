@@ -3,6 +3,11 @@ require 'spec_helper'
 describe Jogador do
 
   before :each do
+    @jogadores = [Jogador.new, JogadorIA.new, JogadorIA.new, JogadorIA.new]
+    dupla1 = Dupla.new(@jogadores[0], @jogadores[2])
+    dupla2 = Dupla.new(@jogadores[1], @jogadores[3])
+    @jogo = Jogo.new dupla1, dupla2
+    @jogo.distribuir_cartas
     @carta = Carta.new(:naipe => "ouros", :numero => "A")
     @jogador = Jogador.new
   end
@@ -63,5 +68,19 @@ describe Jogador do
       @jogador.should respond_to :ia?
       @jogador.ia?.should be_false
     end
+
+#    it "deve passar a vez ao jogar uma carta" do
+#      jogadores = [Jogador.new, Jogador.new, Jogador.new, Jogador.new]
+#      dupla1 = Dupla.new(jogadores[0], jogadores[2])
+#      dupla2 = Dupla.new(jogadores[1], jogadores[3])
+#      jogo = Jogo.new dupla1, dupla2
+#      jogo.distribuir_cartas
+#
+#      pos = jogadores.index jogo.jogador_atual
+#      4.times do |i|
+#        jogo.jogador_atual.should be jogadores[(pos + i) % 4]
+#        jogo.jogador_atual.cartas.first.jogar!
+#      end
+#    end
   end
 end

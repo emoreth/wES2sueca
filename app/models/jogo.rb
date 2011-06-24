@@ -1,7 +1,6 @@
 class Jogo
 
   attr_reader :duplas
-  attr_reader :primeiro_jogador
   attr_reader :jogador_atual
   attr_reader :trunfo
   attr_reader :partidas
@@ -28,7 +27,7 @@ class Jogo
 		@jogadores.each do |jogador|
       jogador.receber_cartas baralho.comprar
     end
-    @trunfo = @primeiro_jogador.cartas.first
+    @trunfo = @jogador_atual.cartas.first
   end
 
   def sortear_jogador
@@ -36,8 +35,7 @@ class Jogo
   end
 
   def escolher_primeiro
-    @primeiro_jogador = sortear_jogador
-    @jogador_atual = @primeiro_jogador
+    @jogador_atual = sortear_jogador
   end
 
   def proximo_jogador

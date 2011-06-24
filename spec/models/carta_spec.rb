@@ -79,16 +79,21 @@ describe Carta do
       carta = Carta.new :naipe => "ouros", :numero => "Q"
       carta.valor.should == 2
       for i in 2..6 do
-      carta = Carta.new :naipe => "ouros", :numero => i.to_s
-      carta.valor.should == 0
+        carta = Carta.new :naipe => "ouros", :numero => i.to_s
+        carta.valor.should == 0
       end
     end
 
     it "deve saber ser jogada" do
-      carta = Carta.new :naipe => "ouros", :numero => "A"
+      jogadores = [Jogador.new, Jogador.new, Jogador.new, Jogador.new]
+      dupla1 = Dupla.new(jogadores[0], jogadores[2])
+      dupla2 = Dupla.new(jogadores[1], jogadores[3])
+      jogo = Jogo.new dupla1, dupla2
+      jogo.distribuir_cartas
+      
+      jogador = jogo.jogador_atual
+      carta = jogador.cartas.first
       carta.should respond_to :jogar!
-      jogador = Jogador.new
-      jogador.receber_cartas [carta]
 
       carta.jogar!.should be carta
       jogador.cartas.should_not include carta

@@ -5,7 +5,7 @@ class JogadorIA < Jogador
   end
 
   def proxima_jogada
-    self.cartas.pop
+    self.cartas.first.jogar!
   end
   
 end

@@ -92,12 +92,6 @@ describe Jogo do
       jogador.should be_a Jogador
     end
 
-    it "deve ver primeiro jogador" do
-      @jogo.should respond_to :primeiro_jogador
-      @jogo.escolher_primeiro
-      @jogo.primeiro_jogador.should be_a Jogador
-    end
-
     it "deve ver jogador atual" do
       @jogo.should respond_to :jogador_atual
       @jogo.escolher_primeiro
@@ -106,10 +100,10 @@ describe Jogo do
     
     it "deve determinar primeiro jogador" do
       @jogo.should respond_to :escolher_primeiro
-      @jogo.primeiro_jogador.should be_nil
+      @jogo.jogador_atual.should be_nil
       primeiro = @jogo.escolher_primeiro
       primeiro.should be_a Jogador
-      @jogo.primeiro_jogador.should be primeiro
+      @jogo.jogador_atual.should be primeiro
     end
 
     it "deve determinar a ordem de jogada" do
@@ -124,7 +118,7 @@ describe Jogo do
       @jogo.distribuir_cartas
       trunfo = @jogo.trunfo
       trunfo.should be_a Carta
-      @jogo.primeiro_jogador.cartas.should include trunfo
+      @jogo.jogador_atual.cartas.should include trunfo
     end
 
     it "deve poder receber nova jogada" do
@@ -144,5 +138,10 @@ describe Jogo do
       partida = @jogo.nova_partida
       @jogo.partida_atual.should be partida
     end
+
+#    it "deve criar uma referência global para si mesmo" do
+#      Jogo.should respond_to :instance
+#      Jogo.instance.should be @jogo
+#    end
   end
 end
