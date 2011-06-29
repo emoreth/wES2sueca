@@ -12,6 +12,7 @@ gem 'cancan'
 
 
 group :development, :test do
+  gem 'rcov'
   gem 'rspec'
   gem 'rspec-rails'
   gem 'cucumber'

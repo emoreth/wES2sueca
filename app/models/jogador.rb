@@ -22,5 +22,8 @@ class Jogador
   def ia?
     false
   end
-end
 
+  def cartas_do_naipe(naipe)
+    @cartas.select { |carta| carta.naipe == naipe }
+  end
+end

@@ -132,10 +132,10 @@ describe Jogo do
       @jogo.partida_atual.should be partida
     end
 
-#    it "deve criar uma referência global para si mesmo" do
-#      Jogo.should respond_to :instance
-#      Jogo.instance.should be @jogo
-#    end
+    #    it "deve criar uma referência global para si mesmo" do
+    #      Jogo.should respond_to :instance
+    #      Jogo.instance.should be @jogo
+    #    end
 
     it "deve distribuir novas cartas ao criar nova partida" do
       @jogo.jogador_atual.should be_nil
@@ -148,8 +148,41 @@ describe Jogo do
       @jogo.partida_atual.rodada_atual.should_not be_nil
     end
 
-    it "deve impedir jogada inválida" do
-      pending "impedir jogada inválida"
+    describe "jogar uma carta" do
+
+      context "quando não há cartas na mesa" do
+        it "deve permitir qualquer carta" do
+          @jogo.nova_partida
+          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "ouros", :numero => "A")).
+            should be_true
+        end
+      end
+
+      context "quando tem carta válida" do
+        it "deve permitir carta do mesmo naipe" do
+          @jogo.nova_partida
+          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "ouros", :numero => "A"))
+          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "ouros", :numero => "K")).
+            should be_true
+        end
+
+        it "deve impedir carta de outro naipe" do
+          @jogo.nova_partida
+          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "ouros", :numero => "A"))
+          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "paus", :numero => "K")).
+            should be_false
+        end
+      end
+
+      context "quando não tem carta válida" do
+        it "deve permitir qualquer carta" do
+          @jogo.nova_partida
+          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "ouros", :numero => "A"))
+          @jogo.jogador_atual.instance_variable_set :@cartas, []
+          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "paus", :numero => "K")).
+            should be_true
+        end
+      end
     end
   end
 end

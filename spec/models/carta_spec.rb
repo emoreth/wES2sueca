@@ -18,7 +18,6 @@ describe Carta do
   describe "Validações:" do
 
     it "deve aceitar um hash na inicialização" do
-      # Não sei bem como testar isso, se alguém tiver uma idéia melhor pode mudar à vontade!
       lambda{
         carta = Carta.new :naipe => "ouros", :numero => "A"
         carta.naipe.should == "ouros"

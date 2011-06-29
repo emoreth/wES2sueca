@@ -69,18 +69,11 @@ describe Jogador do
       @jogador.ia?.should be_false
     end
 
-#    it "deve passar a vez ao jogar uma carta" do
-#      jogadores = [Jogador.new, Jogador.new, Jogador.new, Jogador.new]
-#      dupla1 = Dupla.new(jogadores[0], jogadores[2])
-#      dupla2 = Dupla.new(jogadores[1], jogadores[3])
-#      jogo = Jogo.new dupla1, dupla2
-#      jogo.nova_partida
-#
-#      pos = jogadores.index jogo.jogador_atual
-#      4.times do |i|
-#        jogo.jogador_atual.should be jogadores[(pos + i) % 4]
-#        jogo.jogador_atual.cartas.first.jogar!
-#      end
-#    end
+    it "deve saber retornar as cartas de um naipe específico" do
+      @jogador.should respond_to :cartas_do_naipe
+      carta = Carta.new(:naipe => "ouros", :numero => "A")
+      @jogador.receber_cartas([carta])
+      @jogador.cartas_do_naipe("ouros").should include carta
+    end
   end
 end

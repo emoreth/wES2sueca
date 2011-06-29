@@ -55,13 +55,18 @@ class Jogo
 
   def nova_jogada(jogada)
     rodada = @partida_atual.rodada_atual
-    if rodada.completa?
-      if @partida_atual.completa?
-        nova_partida
+    if !rodada.naipe || jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
+      if rodada.completa?
+        if @partida_atual.completa?
+          nova_partida
+        end
+        rodada = @partida_atual.nova_rodada
       end
-      rodada = @partida_atual.nova_rodada
+      rodada.nova_jogada(jogada)
+      true
+    else
+      false
     end
-    rodada.nova_jogada(jogada)
   end
 
   def dificuldade=(nivel)
