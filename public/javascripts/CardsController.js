@@ -21,6 +21,8 @@ var CardsController = Class.create({
         this.humanPlayerNumber = 0;
         this.currentPlayer = 0;
         this.borderWidth = 20;
+        this.cardsDelivered = false;
+        this.startPlayAllowed = false;
     },
 
     randomizeCards : function()
@@ -35,12 +37,6 @@ var CardsController = Class.create({
 
     deliverCards : function()
     {
-        this._deliverTop()
-        
-    },
-
-    _deliverTop : function()
-    {
         this._deliverCards('.top', 'topDeck', this._calculateXForHorizontal, function(){
             return -100
         })
@@ -52,10 +48,10 @@ var CardsController = Class.create({
         })
         this._deliverCards('.left', 'leftDeck', function(){
             return -100
-        }, this._calculateYForVertical)
+        }, this._calculateYForVertical, true)
     },
 
-    _deliverCards : function(selector, container, xPosFunction, yPosFunction) {
+    _deliverCards : function(selector, container, xPosFunction, yPosFunction, lastCards) {
         this.table.select(selector).each(function(obj, index) {
 
             new Effect.Move(obj, {
@@ -72,6 +68,12 @@ var CardsController = Class.create({
                     scope: ('top_'+index)
                 },
                 afterFinish : function(evt){
+                    if(lastCards && !this.cardsDelivered) {
+                        this.cardsDelivered = true;
+                        if(this.startPlayAllowed) {
+                            this._startPlay();
+                        }
+                    }
                     var obj = evt.element;
                     obj.setStyle({
                         left: '',
@@ -80,7 +82,7 @@ var CardsController = Class.create({
                     })
                     $(container).insert(obj);
                     new Effect.Appear(obj);
-                }
+                }.bind(this)
             });
         }.bind(this))
     },
@@ -122,34 +124,34 @@ var CardsController = Class.create({
 
     throwCard : function(el) {        
         new Effect.Move(el, {
-                x: 0,
-                y: -100,
-                position : 'absolute',
-                afterFinish : function(evt){
-                    var _card = evt.element;
-                    var _tablePos = this.table.cumulativeOffset();
-                    var _cardPos = _card.cumulativeOffset();
+            x: 0,
+            y: -100,
+            position : 'absolute',
+            afterFinish : function(evt){
+                var _card = evt.element;
+                var _tablePos = this.table.cumulativeOffset();
+                var _cardPos = _card.cumulativeOffset();
 
-                    this.table.insert(
-                        _card.setStyle({
-                            top : (_cardPos.top - _tablePos.top - this.borderWidth) + "px",
-                            left : (_cardPos.left - _tablePos.left - this.borderWidth) + "px",
-                            position : "relative"
-                        })
+                this.table.insert(
+                    _card.setStyle({
+                        top : (_cardPos.top - _tablePos.top - this.borderWidth) + "px",
+                        left : (_cardPos.left - _tablePos.left - this.borderWidth) + "px",
+                        position : "relative"
+                    })
                     );
-                    _card.absolutize();
-                    this.setCurrentCard(el);
-                    this.nextMove();
-                }.bind(this)
-            });        
+                _card.absolutize();
+                this.setCurrentCard(el);
+                this.nextMove();
+            }.bind(this)
+        });
         
 
         el.removeAttribute('data-selected');
 
-        //el.setStyle({
-        //    top : '250px',
-        //    left: '250px'
-        //})
+    //el.setStyle({
+    //    top : '250px',
+    //    left: '250px'
+    //})
     },
 
     setCurrentCard : function(value) {
@@ -163,7 +165,10 @@ var CardsController = Class.create({
 
         this._nextPlayer();
 
-        new Ajax.Request("proxima_jogada", {parameters : params, onSuccess : this._moveHandler.bind(this) })
+        new Ajax.Request("proxima_jogada", {
+            parameters : params,
+            onSuccess : this._moveHandler.bind(this)
+        })
     },
 
     _moveHandler : function(r) {
@@ -193,6 +198,25 @@ var CardsController = Class.create({
 
     isHumanPlayer : function() {
         return this.currentPlayer == this.humanPlayerNumber;
+    },
+
+    announcePlayer : function() {
+        if(console && console.log) {
+            console.log(this.currentPlayer);
+        }
+    },
+
+    startPlay : function() {
+        if(this.startPlayAllowed) {
+            this._startPlay();
+        } else {
+            this.startPlayAllowed = true;
+        }
+    },
+
+    _startPlay : function() {
+        this.announcePlayer();
+        this.nextMove();
     }
 
 
