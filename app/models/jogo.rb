@@ -2,7 +2,6 @@ class Jogo
 
   attr_reader :duplas
   attr_reader :jogador_atual
-  attr_reader :trunfo
   attr_reader :partidas
   attr_reader :partida_atual
   attr_reader :dificuldade
@@ -18,7 +17,6 @@ class Jogo
     @duplas = [dupla1, dupla2]
     @jogadores = [dupla1.jogadores[0], dupla2.jogadores[0], dupla1.jogadores[1], dupla2.jogadores[1]]
     @partidas = []
-    nova_partida
   end
 
   def distribuir_cartas
@@ -27,7 +25,6 @@ class Jogo
 		@jogadores.each do |jogador|
       jogador.receber_cartas baralho.comprar
     end
-    @trunfo = @jogador_atual.cartas.first
   end
 
   def sortear_jogador
@@ -35,7 +32,11 @@ class Jogo
   end
 
   def escolher_primeiro
-    @jogador_atual = sortear_jogador
+    if @jogador_atual
+      @jogador_atual = partida_atual.dupla_vencedora.first
+    else
+      @jogador_atual = sortear_jogador
+    end
   end
 
   def proximo_jogador
@@ -44,9 +45,12 @@ class Jogo
 
   def nova_partida
     raise "jogo deve ter no máximo 7 partidas" if @partidas.length == 7
+    distribuir_cartas
     partida = Partida.new
     @partidas << partida
     @partida_atual = partida
+    @partida_atual.trunfo = @jogador_atual.cartas.first
+    @partida_atual
   end
 
   def nova_jogada(jogada)

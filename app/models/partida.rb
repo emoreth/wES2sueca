@@ -2,6 +2,7 @@ class Partida
 
   attr_reader :rodadas
   attr_reader :rodada_atual
+  attr_accessor :trunfo
 
   def initialize
     @rodadas = []

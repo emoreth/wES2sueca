@@ -11,25 +11,28 @@ class ApplicationController < ActionController::Base
 		@dupla2 = Dupla.new @jogador2, @jogador4
 
 		@jogo = Jogo.new @dupla1, @dupla2
-		@jogo.distribuir_cartas
+		@jogo.nova_partida
     session[:jogo] = @jogo
 
 	end
 
   def proxima_jogada
-
+#    breakpoint
     info = nil
     jogador = session[:jogo].jogador_atual
     if jogador.ia?
       info = {}
       info[:numero_carta] = jogador.proxima_jogada.id
+      session[:jogo].proximo_jogador
     else
-      jogador.cartas.select { |carta| carta == params[:numero_carta] }.first.jogar!
+      if params[:numero_carta] && params[:numero_carta].any?
+        jogador.cartas.select { |carta| carta == params[:numero_carta] }.first.jogar!
+        session[:jogo].proximo_jogador
+      end
     end
-    session[:jogo].proximo_jogador
     render :json => { 
       :computador => info
-      }, :layout => false
+    }, :layout => false
 
   end
 
