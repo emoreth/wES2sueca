@@ -24,12 +24,12 @@ class ApplicationController < ActionController::Base
       info = {}
       info[:numero_carta] = jogador.proxima_jogada.id
     else
-      jogador.cartas.select { |carta| carta == params[:numero_carta] }.first.jogar!
+      info  = nil
     end
     session[:jogo].proximo_jogador
     render :json => { 
       :computador => info
-      }, :layout => false
+    }, :layout => false
 
   end
 

@@ -16,5 +16,7 @@ Event.observe(document, 'dom:loaded', function(){
         }
     });
 
+    window.NC = new Growler({location:"br"});
+
     
 })
