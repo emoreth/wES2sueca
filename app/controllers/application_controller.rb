@@ -22,12 +22,13 @@ class ApplicationController < ActionController::Base
     if jogo.jogador_atual.ia?
       info = jogador_ia
     else
-      jogador
+      jogador_humano
     end
    
     render :json => {
       :computador => info,
-      :trunfo => jogo.partida_atual.trunfo.nome_arquivo
+      :trunfo => jogo.partida_atual.trunfo.nome_arquivo,
+      :jogador_atual => jogo.jogador_atual.id
     }, :layout => false
 
   end

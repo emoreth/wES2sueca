@@ -2,6 +2,7 @@ class Jogador
 
   attr_reader :cartas
   attr_accessor :dupla
+  attr_accessor :id
 
   def initialize
     @cartas = []

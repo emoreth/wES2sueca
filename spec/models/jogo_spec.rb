@@ -239,5 +239,11 @@ describe Jogo do
       rodada.vencedor.should be @jogo.jogador_atual
     end
 
+    it "deve determinar ids para os jogadores na inicialização" do
+      @jogadores[0].id.should == 0
+      @jogadores[1].id.should == 1
+      @jogadores[2].id.should == 2
+      @jogadores[3].id.should == 3
+    end
   end
 end

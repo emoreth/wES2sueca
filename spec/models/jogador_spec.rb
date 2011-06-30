@@ -36,6 +36,12 @@ describe Jogador do
 
   describe "Atributos:" do
 
+    it "deve ter um id" do
+      @jogador.should respond_to :id
+      @jogador.id = 1
+      @jogador.id.should == 1
+    end
+
     it "deve ter cartas" do
       @jogador.should respond_to :cartas
       @jogador.cartas.should be_empty
