@@ -17,23 +17,45 @@ class ApplicationController < ActionController::Base
 	end
 
   def proxima_jogada
-#    breakpoint
+    #        breakpoint
     info = nil
-    jogador = session[:jogo].jogador_atual
-    if jogador.ia?
-      info = {}
-      info[:numero_carta] = jogador.proxima_jogada.id
-      session[:jogo].proximo_jogador
+    if jogo.jogador_atual.ia?
+      info = jogador_ia
     else
-      if params[:numero_carta] && params[:numero_carta].any?
-        jogador.cartas.select { |carta| carta == params[:numero_carta] }.first.jogar!
-        session[:jogo].proximo_jogador
-      end
+      jogador
     end
-    render :json => { 
-      :computador => info
+   
+    render :json => {
+      :computador => info,
+      :trunfo => jogo.partida_atual.trunfo.nome_arquivo
     }, :layout => false
 
+  end
+
+  private
+  def jogador_ia
+    carta = jogo.jogador_atual.proxima_jogada
+    if jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
+      info = {}
+      info[:numero_carta] = carta.id
+      info[:imagem_carta] = carta.nome_arquivo
+      info
+    else
+      nil
+    end
+  end
+
+  def jogador_humano
+    if params[:numero_carta] && params[:numero_carta].any?
+      carta = jogo.jogador_atual.cartas.select { |carta| carta == params[:numero_carta] }.first
+      if jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
+        jogador_ia
+      end
+    end
+  end
+
+  def jogo
+    session[:jogo]
   end
 
 end

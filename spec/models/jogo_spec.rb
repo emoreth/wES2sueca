@@ -153,7 +153,9 @@ describe Jogo do
       context "quando não há cartas na mesa" do
         it "deve permitir qualquer carta" do
           @jogo.nova_partida
-          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "ouros", :numero => "A")).
+
+          jogador = @jogo.jogador_atual
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => jogador.cartas.first).
             should be_true
         end
       end
@@ -161,15 +163,31 @@ describe Jogo do
       context "quando tem carta válida" do
         it "deve permitir carta do mesmo naipe" do
           @jogo.nova_partida
-          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "ouros", :numero => "A"))
-          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "ouros", :numero => "K")).
+
+          jogador = @jogo.jogador_atual
+          carta = jogador.cartas.first
+          carta.naipe = "ouros"
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => carta)
+
+          jogador = @jogo.jogador_atual
+          carta = jogador.cartas.first
+          carta.naipe = "ouros"
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => carta).
             should be_true
         end
 
         it "deve impedir carta de outro naipe" do
           @jogo.nova_partida
-          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "ouros", :numero => "A"))
-          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "paus", :numero => "K")).
+
+          jogador = @jogo.jogador_atual
+          carta = jogador.cartas.first
+          carta.naipe = "ouros"
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => carta)
+
+          jogador = @jogo.jogador_atual
+          carta = jogador.cartas.first
+          carta.naipe = "paus"
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => carta).
             should be_false
         end
       end
@@ -177,12 +195,35 @@ describe Jogo do
       context "quando não tem carta válida" do
         it "deve permitir qualquer carta" do
           @jogo.nova_partida
-          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "ouros", :numero => "A"))
-          @jogo.jogador_atual.instance_variable_set :@cartas, []
-          @jogo.nova_jogada(Jogada.new :jogador => @jogo.jogador_atual, :carta => Carta.new(:naipe => "paus", :numero => "K")).
+
+          jogador = @jogo.jogador_atual
+          carta = jogador.cartas.first
+          carta.naipe == "ouros"
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => carta)
+
+          jogador = @jogo.jogador_atual
+          jogador.instance_variable_set :@cartas, []
+          carta = Carta.new(:naipe => "paus", :numero => "K")
+          jogador.receber_cartas [carta]
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => carta).
             should be_true
         end
       end
+    end
+
+    it "deve passar a vez do jogador quando for feita uma nova jogada" do
+      @jogo.nova_partida
+      jogador = @jogo.jogador_atual
+      @jogo.nova_jogada(Jogada.new(:jogador => jogador, :carta => jogador.cartas.first))
+      @jogo.jogador_atual.should_not be jogador
+    end
+
+    it "deve retirar a carta da mão do jogador em uma jogada bem sucedida" do
+      @jogo.nova_partida
+      jogador = @jogo.jogador_atual
+      carta = jogador.cartas.first
+      @jogo.nova_jogada(Jogada.new(:jogador => jogador, :carta => carta))
+      jogador.cartas.should_not include carta
     end
   end
 end

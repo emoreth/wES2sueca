@@ -76,11 +76,18 @@ describe Partida do
 
       jogo.partida_atual.should respond_to :dupla_vencedora
 
-      10.times do |i|
-        jogo.nova_jogada(Jogada.new(:jogador => jogadores[0], :carta => Carta.new(:naipe => "ouros", :numero => "A")))
-        jogo.nova_jogada(Jogada.new(:jogador => jogadores[2], :carta => Carta.new(:naipe => "ouros", :numero => "A")))
-        jogo.nova_jogada(Jogada.new(:jogador => jogadores[1], :carta => Carta.new(:naipe => "ouros", :numero => "2")))
-        jogo.nova_jogada(Jogada.new(:jogador => jogadores[3], :carta => Carta.new(:naipe => "ouros", :numero => "2")))
+      jogadores.each_with_index { |j,i| j.instance_variable_set :@i, i}
+
+      inc = 0
+      jogo.instance_variable_set :@jogador_atual, jogadores[0]
+      10.times do
+        4.times do |i|
+          jogador = jogadores[i]
+          carta = jogador.cartas.first
+          carta.naipe = "ouros"
+          carta.numero = i.even? ? "A" : "2"
+          jogo.nova_jogada(Jogada.new(:jogador => jogador, :carta => carta))
+        end
       end
       
       jogo.partida_atual.dupla_vencedora.should be duplas[0]

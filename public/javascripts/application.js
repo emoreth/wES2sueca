@@ -3,6 +3,6 @@ Event.observe(document, 'dom:loaded', function(){
     CC.randomizeCards();
     (function(){
         CC.deliverCards();
-        CC.startPlay();
+//        CC.startPlay();
     }).delay(1)
 })

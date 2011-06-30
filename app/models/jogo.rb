@@ -63,6 +63,8 @@ class Jogo
         rodada = @partida_atual.nova_rodada
       end
       rodada.nova_jogada(jogada)
+      jogada.carta.jogar!
+      proximo_jogador
       true
     else
       false
