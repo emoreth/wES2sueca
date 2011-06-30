@@ -4,8 +4,12 @@ class JogadorIA < Jogador
     true
   end
 
-  def proxima_jogada
-    self.cartas.first
+  def proxima_jogada(naipe)
+    self.cartas_validas(naipe).first
+  end
+
+  def cartas_validas(naipe)
+    @cartas.select { |carta| carta.naipe == naipe }
   end
   
 end
