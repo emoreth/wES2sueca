@@ -225,5 +225,19 @@ describe Jogo do
       @jogo.nova_jogada(Jogada.new(:jogador => jogador, :carta => carta))
       jogador.cartas.should_not include carta
     end
+
+    it "deve determinar vencedor da rodada como próximo jogador" do
+      @jogo.nova_partida
+      rodada = @jogo.partida_atual.rodada_atual
+      4.times do
+        jogador = @jogo.jogador_atual
+        carta = jogador.cartas.first
+        carta.naipe = "ouros"
+#        debugger
+        @jogo.nova_jogada(Jogada.new(:jogador => jogador, :carta => carta))
+      end
+      
+      rodada.vencedor.should be @jogo.jogador_atual
+    end
   end
 end

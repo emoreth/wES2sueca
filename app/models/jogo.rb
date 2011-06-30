@@ -33,7 +33,7 @@ class Jogo
 
   def escolher_primeiro
     if @jogador_atual
-      @jogador_atual = partida_atual.dupla_vencedora.first
+      @jogador_atual = @partida_atual.dupla_vencedora.jogadores.first
     else
       @jogador_atual = sortear_jogador
     end
@@ -56,15 +56,18 @@ class Jogo
   def nova_jogada(jogada)
     rodada = @partida_atual.rodada_atual
     if !rodada.naipe || jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
+      rodada.nova_jogada(jogada)
+      jogada.carta.jogar!
+
       if rodada.completa?
         if @partida_atual.completa?
           nova_partida
         end
-        rodada = @partida_atual.nova_rodada
+        @jogador_atual = rodada.vencedor
+        @partida_atual.nova_rodada
+      else
+        proximo_jogador
       end
-      rodada.nova_jogada(jogada)
-      jogada.carta.jogar!
-      proximo_jogador
       true
     else
       false

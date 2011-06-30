@@ -16,7 +16,7 @@ class Jogador
 
   def jogar_carta(carta)
     raise ArgumentError, "não há cartas para jogar" if @cartas.empty?
-    @cartas.delete carta
+    @cartas.delete_at @cartas.index(carta) if @cartas.index(carta)
   end
 
   def ia?

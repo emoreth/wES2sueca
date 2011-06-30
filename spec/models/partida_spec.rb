@@ -90,7 +90,7 @@ describe Partida do
         end
       end
       
-      jogo.partida_atual.dupla_vencedora.should be duplas[0]
+      jogo.partidas.first.dupla_vencedora.should be duplas[0]
     end
 
     it "nova rodada deve ser a rodada atual" do
