@@ -218,11 +218,11 @@ Modalbox.Methods = {
 		if(typeof content == 'string')
 			this.MBcontent.hide().update(content);
 		else if (typeof this.content == 'object') { // HTML Object is given
-			var _htmlObj = content.cloneNode(true); // If node already a part of DOM we'll clone it
+			var _htmlObj = content; // If node already a part of DOM we'll clone it
 			// If clonable element has ID attribute defined, modifying it to prevent duplicates
-			if(this.content.id) this.content.id = "MB_" + this.content.id;
+//			if(this.content.id) this.content.id = "MB_" + this.content.id;
 			/* Add prefix for IDs on all elements inside the DOM node */
-			this.content.getElementsBySelector('*[id]').each(function(el){ el.id = "MB_" + el.id });
+//			this.content.getElementsBySelector('*[id]').each(function(el){ el.id = "MB_" + el.id });
 			this.MBcontent.hide().appendChild(_htmlObj);
 			this.MBcontent.down().show(); // Toggle visibility for hidden nodes
 		}
@@ -235,7 +235,7 @@ Modalbox.Methods = {
 				afterResize: function(){
 					this.MBcontent.show();
 					this.focusableElements = this._findFocusableElements();
-					this._setFocus(); // Setting focus on first 'focusable' element in content (input, select, textarea, link or button)
+//					this._setFocus(); // Setting focus on first 'focusable' element in content (input, select, textarea, link or button)
 					this.event("afterLoad"); // Passing callback
 				}.bind(this)
 			});
@@ -244,7 +244,7 @@ Modalbox.Methods = {
 			this.MBcontent.setStyle({overflow: 'auto', height: Element.getHeight(this.MBwindow) - Element.getHeight(this.MBheader) - 13 + 'px'});
 			this.MBcontent.show();
 			this.focusableElements = this._findFocusableElements();
-			this._setFocus(); // Setting focus on first 'focusable' element in content (input, select, textarea, link or button)
+//			this._setFocus(); // Setting focus on first 'focusable' element in content (input, select, textarea, link or button)
 			this.event("afterLoad"); // Passing callback
 		}
 	},
