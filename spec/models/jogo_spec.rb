@@ -233,11 +233,11 @@ describe Jogo do
         jogador = @jogo.jogador_atual
         carta = jogador.cartas.first
         carta.naipe = "ouros"
-#        debugger
         @jogo.nova_jogada(Jogada.new(:jogador => jogador, :carta => carta))
       end
       
       rodada.vencedor.should be @jogo.jogador_atual
     end
+
   end
 end

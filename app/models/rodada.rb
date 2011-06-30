@@ -17,7 +17,7 @@ class Rodada
     maior = 0
     jogador = nil
     @jogadas.each do |jogada|
-      if jogada.carta.valor > maior
+      if jogada.carta.valor >= maior
         maior = jogada.carta.valor
         jogador = jogada.jogador
       end

@@ -21,23 +21,37 @@ class Partida
   end
 
   def dupla_vencedora
-    @rodadas.each do |rodada|
-      rodada.jogadas.each do |jogada|
-        jogada.jogador.dupla.pontos_da_partida += jogada.carta.valor
+
+    unless @dupla_vencedora
+      dupla1 = @rodada_atual.jogadas[0].jogador.dupla
+      dupla2 = @rodada_atual.jogadas[1].jogador.dupla
+
+      dupla1.pontos_da_partida = 0
+      dupla2.pontos_da_partida = 0
+
+      @rodadas.each do |rodada|
+        rodada.jogadas.each do |jogada|
+          jogada.jogador.dupla.pontos_da_partida += jogada.carta.valor
+        end
       end
-    end
     
-    maior = 0
-    dupla = nil
-    @rodada_atual.jogadas.each do |jogada|
-      d = jogada.jogador.dupla
-      if d.pontos_da_partida > maior
-        maior = d.pontos_da_partida
-        dupla = d
+      if dupla1.pontos_da_partida > dupla2.pontos_da_partida
+        @dupla_vencedora = dupla1
+      elsif dupla1.pontos_da_partida > dupla2.pontos_da_partida
+        @dupla_vencedora = dupla2
+      end
+
+      @dupla_vencedora.pontos_do_jogo = case @dupla_vencedora.pontos_da_partida
+      when 61..90
+        1
+      when 91..119
+        2
+      when 120
+        4
       end
     end
 
-    dupla
+    @dupla_vencedora
   end
   
 end
