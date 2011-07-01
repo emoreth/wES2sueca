@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   
 
-	def index
+  def index
     @jogador1 = Jogador.new 0
     @jogador2 = JogadorIA.new 1
     @jogador3 = JogadorIA.new 2
