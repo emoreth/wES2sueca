@@ -16,12 +16,11 @@ class ApplicationController < ActionController::Base
 
 	end
 
-  def configurar_dificuldade
-    jogo.dificuldade=(params[:dificuldade])
-    render :json => {},  :layout => false
-  end
-
   def proxima_jogada
+
+    debugger
+    jogo.dificuldade = params[:game_level] if params[:game_level]
+
     info = nil
     if jogo.jogador_atual.ia?
       info = jogador_ia
