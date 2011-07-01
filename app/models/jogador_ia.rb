@@ -7,19 +7,19 @@ class JogadorIA < Jogador
   end
 
   def proxima_jogada(naipe)
-    #    cartas_validas = self.cartas_validas(naipe)
-    #    if cartas_validas.empty?
-    #      cartas_validas = @cartas
-    #    end
-    #    cartas_validas.first
-    case jogo.dificuldade
-    when Jogo::FACIL
-      turno_nivel_facil
-    when Jogo::Normal
-      turno_nivel_normal
-    when Jogo::DIFICIL
-      turno_nivel_dificil
+    cartas_validas = self.cartas_validas(naipe)
+    if cartas_validas.empty?
+      cartas_validas = @cartas
     end
+    cartas_validas.first
+    #    case jogo.dificuldade
+    #    when Jogo::FACIL
+    #      turno_nivel_facil
+    #    when Jogo::Normal
+    #      turno_nivel_normal
+    #    when Jogo::DIFICIL
+    #      turno_nivel_dificil
+    #    end
   end
 
   def cartas_validas(naipe)
