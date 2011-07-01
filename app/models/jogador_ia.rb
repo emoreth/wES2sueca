@@ -14,7 +14,7 @@ class JogadorIA < Jogador
 #    cartas_validas.first
     #    case jogo.dificuldade
     #    when Jogo::FACIL
-          turno_nivel_facil
+          return turno_nivel_facil
     #    when Jogo::Normal
     #      turno_nivel_normal
     #    when Jogo::DIFICIL
@@ -73,9 +73,9 @@ class JogadorIA < Jogador
   # Nivel de dificuldade Easy
   def turno_nivel_facil
     if tem_naipe_da_rodada_ou_trunfo?
-      joga_maior_carta
+      return joga_maior_carta
     else
-      joga_menor_carta
+      return joga_menor_carta
     end
   end
 

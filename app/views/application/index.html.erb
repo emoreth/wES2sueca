@@ -40,6 +40,9 @@
     });
 
     $$('.bottom').invoke('observe', 'click', function(evt){
+      if(!CC.isHumanPlayer() && CC.currentPlayer !== null) {
+        return;
+      }
       var _el = evt.element();
       if(CC.selected(_el))
       {

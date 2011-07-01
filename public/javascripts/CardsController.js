@@ -148,7 +148,6 @@ var CardsController = Class.create({
                 new Effect.Appear(_card, {
                     afterFinish : function(){
                         var _cards = this.table.select('.card');
-                        console.log(_cards)
                         if(_cards.length == 4) {
                             _cards.each(function(card){
                                 new Effect.Fade(card, {
@@ -198,6 +197,9 @@ var CardsController = Class.create({
 
     _moveHandler : function(r) {
         var _nextCard = $$("img[data-card_number='"+r.responseJSON.computador.numero_carta+"']").first();
+        if(!_nextCard) {
+            alert("A carta do ID " + r.responseJSON.computador.numero_carta + " nao existe!!");
+        }
         var _imagemCarta = false;
         if(r.responseJSON.computador) {
             _imagemCarta = r.responseJSON.computador.imagem_carta
