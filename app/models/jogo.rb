@@ -16,7 +16,7 @@ class Jogo
     @dificuldade = FACIL
     @duplas = [dupla1, dupla2]
     @jogadores = [dupla1.jogadores[0], dupla2.jogadores[0], dupla1.jogadores[1], dupla2.jogadores[1]]
-    @jogadores.each_with_index { |jogador,i| jogador.id = i }
+#    @jogadores.each_with_index { |jogador,i| jogador.id = i }
     @partidas = []
   end
 

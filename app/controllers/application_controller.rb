@@ -26,9 +26,6 @@ class ApplicationController < ActionController::Base
     jogo.dificuldade = params[:game_level] if params[:game_level]
 
     @info = nil
-    puts ">" * 10
-    puts jogo.jogador_atual.id
-    
     if jogo.jogador_atual.ia?
       jogador_ia
     else
@@ -36,7 +33,7 @@ class ApplicationController < ActionController::Base
     end
    
     render :json => {
-      :computador => info,
+      :computador => @info,
       :trunfo => jogo.partida_atual.trunfo.nome_arquivo,
       :jogador_atual => jogo.jogador_atual.id,
       :jogo_completo => jogo.completo?,
@@ -64,7 +61,6 @@ class ApplicationController < ActionController::Base
       carta = jogo.jogador_atual.cartas.select { |cada_carta| cada_carta == params[:numero_carta] }.first
       if jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
         if jogo.jogador_atual.ia?
-          debugger
           jogador_ia
         end
       end
