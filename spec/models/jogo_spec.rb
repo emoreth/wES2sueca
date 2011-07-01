@@ -12,22 +12,22 @@ describe Jogo do
   describe "Constantes:" do
     it "deve ter dificuldade fácil" do
       Jogo.constants.should include "FACIL"
-      Jogo::FACIL.should == "Fácil"
+      Jogo::FACIL.should == "facil"
     end
 
     it "deve ter dificuldade normal" do
       Jogo.constants.should include "NORMAL"
-      Jogo::NORMAL.should == "Normal"
+      Jogo::NORMAL.should == "normal"
     end
 
     it "deve ter dificuldade difícil" do
       Jogo.constants.should include "DIFICIL"
-      Jogo::DIFICIL.should == "Difícil"
+      Jogo::DIFICIL.should == "dificil"
     end
 
     it "deve ter dificuldade expert" do
       Jogo.constants.should include "EXPERT"
-      Jogo::EXPERT.should == "Expert"
+      Jogo::EXPERT.should == "expert"
     end
 
     it "deve ter lista de dificuldades" do
@@ -131,11 +131,6 @@ describe Jogo do
       partida = @jogo.nova_partida
       @jogo.partida_atual.should be partida
     end
-
-    #    it "deve criar uma referência global para si mesmo" do
-    #      Jogo.should respond_to :instance
-    #      Jogo.instance.should be @jogo
-    #    end
 
     it "deve distribuir novas cartas ao criar nova partida" do
       @jogo.jogador_atual.should be_nil
@@ -244,6 +239,41 @@ describe Jogo do
       @jogadores[1].id.should == 1
       @jogadores[2].id.should == 2
       @jogadores[3].id.should == 3
+    end
+
+    it "deve saber se está completo" do
+      @jogo.should respond_to :completo?
+      @jogo.nova_partida
+
+      @jogadores.each_with_index { |j,i| j.instance_variable_set :@i, i}
+
+      @jogo.instance_variable_set :@jogador_atual, @jogadores[0]
+
+      indice_carta = 0
+      10.times do
+        4.times do |i|
+          jogador = @jogadores[i]
+          carta = jogador.cartas.first
+          carta.naipe = "ouros"
+          carta.numero = i.even? ? ["A","7","K","J","Q"][indice_carta % 5] : "2"
+          @jogo.nova_jogada(Jogada.new(:jogador => jogador, :carta => carta))
+          indice_carta += 1
+        end
+      end
+
+      @jogo.should be_completo
+    end
+
+    it "deve saber se a rodada atual é nova" do
+      @jogo.should respond_to :rodada_nova?
+      @jogo.nova_partida
+      @jogo.rodada_nova?.should be_true
+    end
+
+    it "deve saber se a partida atual é nova" do
+      @jogo.should respond_to :partida_nova?
+      @jogo.nova_partida
+      @jogo.partida_nova?.should be_true
     end
   end
 end

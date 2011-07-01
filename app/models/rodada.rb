@@ -1,6 +1,7 @@
 class Rodada
 
   attr_reader :jogadas
+  attr_reader :primeiro_jogador
   attr_accessor :naipe
 
   def initialize
@@ -9,7 +10,10 @@ class Rodada
 
   def nova_jogada(jogada)
     raise "rodada deve ter no máximo 4 jogadas" if @jogadas.length == 4
-    @naipe = jogada.carta.naipe if @jogadas.empty?
+    if @jogadas.empty?
+      @naipe = jogada.carta.naipe
+      @primeiro_jogador = jogada.jogador
+    end
     @jogadas << jogada
   end
 
