@@ -1,6 +1,6 @@
 Event.observe(document, 'dom:loaded', function(){
     Modalbox.show($('want_to_play'), {
-        title : "Teste",
+        title : "Qual o nivel do jogo?",
         height : 100,
         onShow : function() {
             $$('.start_game').each(function(button){

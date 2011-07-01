@@ -106,7 +106,7 @@ var CardsController = Class.create({
         new Effect.Move(el, {
             x: 0,
             y: -30,
-            position : 'relative'
+            position : 'absolute'
         })
         el.setAttribute('data-selected', 'true');
     },
@@ -123,29 +123,31 @@ var CardsController = Class.create({
         }
     },
 
-    throwCard : function(el) {
+    throwCard : function(el, imagem) {
 
         if(this.currentPlayer === null) {
             this._findPlayerByCard(el)
         }
 
-        new Effect.Move(el, {
-            x: 0,
-            y: -100,
-            position : 'absolute',
+        var _tableCards = this.table.select('.card');
+
+        var _YPos = [230, 140, 50, 140]
+        var _XPos = [230, 90, 230, 370]
+        new Effect.Fade(el, {
             afterFinish : function(evt){
                 var _card = evt.element;
-                var _tablePos = this.table.cumulativeOffset();
-                var _cardPos = _card.cumulativeOffset();
-
                 this.table.insert(
                     _card.setStyle({
-                        top : (_cardPos.top - _tablePos.top - this.borderWidth) + "px",
-                        left : (_cardPos.left - _tablePos.left - this.borderWidth) + "px",
-                        position : "relative"
+                        top : _YPos[this.currentPlayer] + "px",
+                        left : _XPos[this.currentPlayer] + "px",
+                        position : "absolute"
                     })
                 );
-                _card.absolutize();
+//                _card.absolutize();
+                if(imagem){
+                    _card.writeAttribute('src', '/images/cards/'+imagem+'.png')
+                }
+                new Effect.Appear(_card)
                 this.setCurrentCard(el);
                 this.nextMove();
             }.bind(this)
@@ -178,7 +180,11 @@ var CardsController = Class.create({
 
     _moveHandler : function(r) {
         var _nextCard = $$("img[data-card_number='"+r.responseJSON.computador.numero_carta+"']").first();
-        this.throwCard(_nextCard);
+        var _imagemCarta = false;
+        if(r.responseJSON.computador) {
+            _imagemCarta = r.responseJSON.computador.imagem_carta
+        }
+        this.throwCard(_nextCard, _imagemCarta);
     },
 
     setFirstPlayer: function(playerNumber)
