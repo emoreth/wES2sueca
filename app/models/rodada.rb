@@ -18,12 +18,21 @@ class Rodada
   end
 
   def vencedor
-    maior = 0
-    jogador = nil
+    maior = @jogadas.first.carta
+    jogador = @jogadas.first.jogador
     @jogadas.each do |jogada|
-      if jogada.carta.valor >= maior
-        maior = jogada.carta.valor
+      if jogada.carta.valor >= maior.valor
+        maior = jogada.carta
         jogador = jogada.jogador
+      end
+      if jogada.carta.naipe == @naipe
+        if maior.naipe == @naipe
+          if jogada.carta.valor > maior.valor
+            maior = jogada.carta
+          end
+        else
+          maior = jogada.carta
+        end
       end
     end
 
