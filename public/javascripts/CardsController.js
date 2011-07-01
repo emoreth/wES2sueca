@@ -148,16 +148,16 @@ var CardsController = Class.create({
                 new Effect.Appear(_card, {
                     afterFinish : function(){
                         var _cards = this.table.select('.card');
+                        console.log(_cards)
                         if(_cards.length == 4) {
                             _cards.each(function(card){
                                 new Effect.Fade(card, {
                                     afterFinish : function(evt){
                                         if(this.table.select('.card').length == 4) {
-                                            $(evt.element).remove();
                                             this.setCurrentCard(el);
                                             this.nextMove();
-
                                         }
+                                        $(evt.element).remove();
                                     }.bind(this)
                                 });
                             }.bind(this))
@@ -269,6 +269,7 @@ var CardsController = Class.create({
         var _deck = card.up('.deck');
         var _deckOrder = ['baixo', 'esquerda', 'topo', 'direita'];
         this.setFirstPlayer(_deckOrder.indexOf(_deck.readAttribute('data-posicao')))
+        return this.currentPlayer;
     }
 
 
