@@ -79,4 +79,8 @@ class Jogo
     raise ArgumentError, "dificuldade deve ser válida" unless DIFICULDADES.include? nivel
     self[:dificuldade] = nivel
   end
+
+  def completo?
+    @duplas.detect { |dupla| dupla.pontos_do_jogo >= 4 }
+  end
 end

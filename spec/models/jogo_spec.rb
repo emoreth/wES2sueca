@@ -241,27 +241,27 @@ describe Jogo do
       @jogadores[3].id.should == 3
     end
 
-#    it "deve saber se está completo" do
-#      @jogo.should respond_to :completo?
-#      @jogo.nova_partida
-#
-#      @jogadores.each_with_index { |j,i| j.instance_variable_set :@i, i}
-#
-#      @jogo.instance_variable_set :@jogador_atual, @jogadores[0]
-#
-#      indice_carta = 0
-#      10.times do
-#        4.times do |i|
-#          jogador = @jogadores[i]
-#          carta = jogador.cartas.first
-#          carta.naipe = "ouros"
-#          carta.numero = i.even? ? ["A","7","K","J","Q"][indice_carta % 5] : "2"
-#          @jogo.nova_jogada(Jogada.new(:jogador => jogador, :carta => carta))
-#          indice_carta += 1
-#        end
-#      end
-#
-#      @jogo.should be_completo
-#    end
+    it "deve saber se está completo" do
+      @jogo.should respond_to :completo?
+      @jogo.nova_partida
+
+      @jogadores.each_with_index { |j,i| j.instance_variable_set :@i, i}
+
+      @jogo.instance_variable_set :@jogador_atual, @jogadores[0]
+
+      indice_carta = 0
+      10.times do
+        4.times do |i|
+          jogador = @jogadores[i]
+          carta = jogador.cartas.first
+          carta.naipe = "ouros"
+          carta.numero = i.even? ? ["A","7","K","J","Q"][indice_carta % 5] : "2"
+          @jogo.nova_jogada(Jogada.new(:jogador => jogador, :carta => carta))
+          indice_carta += 1
+        end
+      end
+
+      @jogo.should be_completo
+    end
   end
 end
