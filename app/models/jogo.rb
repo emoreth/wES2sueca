@@ -10,8 +10,7 @@ class Jogo
   FACIL   = "Fácil"
   NORMAL  = "Normal"
   DIFICIL = "Difícil"
-  EXPERT  = "Expert"
-  DIFICULDADES = [FACIL, NORMAL, DIFICIL, EXPERT]
+  DIFICULDADES = [FACIL, NORMAL, DIFICIL]
 
   def initialize(dupla1, dupla2)
     @dificuldade = FACIL
@@ -61,7 +60,7 @@ class Jogo
 
   def nova_jogada(jogada)
     rodada = @partida_atual.rodada_atual
-    debugger unless rodada_nova? || jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
+#    debugger unless rodada_nova? || jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
     if rodada_nova? || jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
       rodada.nova_jogada(jogada)
       jogada.carta.jogar!

@@ -129,10 +129,8 @@ var CardsController = Class.create({
             this._findPlayerByCard(el)
         }
 
-        var _tableCards = this.table.select('.card');
-
-        var _YPos = [230, 140, 50, 140]
-        var _XPos = [230, 90, 230, 370]
+        var _YPos = [230, 140, 50, 140];
+        var _XPos = [230, 90, 230, 370];
         new Effect.Fade(el, {
             afterFinish : function(evt){
                 var _card = evt.element;
@@ -184,6 +182,7 @@ var CardsController = Class.create({
         if(r.responseJSON.computador) {
             _imagemCarta = r.responseJSON.computador.imagem_carta
         }
+        $('trunfo').writeAttribute('src', '/images/cards/'+r.responseJSON.trunfo+'.png')
         this.throwCard(_nextCard, _imagemCarta);
     },
 
@@ -231,6 +230,7 @@ var CardsController = Class.create({
 
     _startPlay : function() {
         window.NC.growl("O jogo começou")
+        $('trunfo').show();
         this.announcePlayer();
         this.nextMove();
     },

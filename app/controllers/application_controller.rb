@@ -21,9 +21,14 @@ class ApplicationController < ActionController::Base
 
   def proxima_jogada
 
+    puts params[:game_level] if params[:game_level]
+    
     jogo.dificuldade = params[:game_level] if params[:game_level]
 
     @info = nil
+    puts ">" * 10
+    puts jogo.jogador_atual.id
+    
     if jogo.jogador_atual.ia?
       jogador_ia
     else
@@ -56,7 +61,7 @@ class ApplicationController < ActionController::Base
 
   def jogador_humano
     if params[:numero_carta] && params[:numero_carta].any?
-      carta = jogo.jogador_atual.cartas.select { |carta| carta == params[:numero_carta] }.first
+      carta = jogo.jogador_atual.cartas.select { |cada_carta| cada_carta == params[:numero_carta] }.first
       if jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
         if jogo.jogador_atual.ia?
           debugger
