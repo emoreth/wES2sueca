@@ -6,7 +6,7 @@ body {
     background: url("/images/fundo.jpg") repeat scroll 0 0 transparent;
 }
 
-.card {
+._card, .card {
     cursor: pointer;
     position: absolute;
     z-index: 10;
