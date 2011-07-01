@@ -38,9 +38,6 @@ var CardsController = Class.create({
 
     deliverCards : function()
     {
-        var qualquercoisa = 564565;
-
-        console.log(qualquercoisa);
         this._deliverCards('.top', 'topDeck', this._calculateXForHorizontal, function(){
             return -100
         })
