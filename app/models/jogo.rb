@@ -54,10 +54,10 @@ class Jogo
     @partida_atual.trunfo = @jogador_atual.cartas.first
     @partida_atual
   end
-
-  def jogar(carta)
-    nova_jogada(Jogada.new(:jogador => self.jogador_atual, :carta => carta))
-  end
+#
+#  def jogar(carta)
+#    nova_jogada(Jogada.new(:jogador => self.jogador_atual, :carta => carta))
+#  end
 
   def nova_jogada(jogada)
     rodada = @partida_atual.rodada_atual
