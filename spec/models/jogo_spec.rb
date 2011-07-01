@@ -263,5 +263,17 @@ describe Jogo do
 
       @jogo.should be_completo
     end
+
+    it "deve saber se a rodada atual é nova" do
+      @jogo.should respond_to :rodada_nova?
+      @jogo.nova_partida
+      @jogo.rodada_nova?.should be_true
+    end
+
+    it "deve saber se a partida atual é nova" do
+      @jogo.should respond_to :partida_nova?
+      @jogo.nova_partida
+      @jogo.partida_nova?.should be_true
+    end
   end
 end

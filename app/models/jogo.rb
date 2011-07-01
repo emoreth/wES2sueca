@@ -83,4 +83,13 @@ class Jogo
   def completo?
     @duplas.detect { |dupla| dupla.pontos_do_jogo >= 4 }
   end
+
+  def rodada_nova?
+    @partida_atual.rodada_atual.jogadas.empty?
+  end
+
+  def partida_nova?
+    @partida_atual.rodadas.length == 1 &&
+      rodada_nova?
+  end
 end
