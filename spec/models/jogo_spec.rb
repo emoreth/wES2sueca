@@ -12,22 +12,22 @@ describe Jogo do
   describe "Constantes:" do
     it "deve ter dificuldade fácil" do
       Jogo.constants.should include "FACIL"
-      Jogo::FACIL.should == "Fácil"
+      Jogo::FACIL.should == "facil"
     end
 
     it "deve ter dificuldade normal" do
       Jogo.constants.should include "NORMAL"
-      Jogo::NORMAL.should == "Normal"
+      Jogo::NORMAL.should == "normal"
     end
 
     it "deve ter dificuldade difícil" do
       Jogo.constants.should include "DIFICIL"
-      Jogo::DIFICIL.should == "Difícil"
+      Jogo::DIFICIL.should == "dificil"
     end
 
     it "deve ter dificuldade expert" do
       Jogo.constants.should include "EXPERT"
-      Jogo::EXPERT.should == "Expert"
+      Jogo::EXPERT.should == "expert"
     end
 
     it "deve ter lista de dificuldades" do

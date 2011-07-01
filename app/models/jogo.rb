@@ -7,10 +7,10 @@ class Jogo
   attr_reader :dificuldade
 
   # DIFICULDADES
-  FACIL   = "Fácil"
-  NORMAL  = "Normal"
-  DIFICIL = "Difícil"
-  EXPERT  = "Expert"
+  FACIL   = "facil"
+  NORMAL  = "normal"
+  DIFICIL = "dificil"
+  EXPERT  = "expert"
   DIFICULDADES = [FACIL, NORMAL, DIFICIL, EXPERT]
 
   def initialize(dupla1, dupla2)
