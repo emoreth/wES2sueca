@@ -28,7 +28,9 @@ class ApplicationController < ActionController::Base
       :computador => info,
       :trunfo => jogo.partida_atual.trunfo.nome_arquivo,
       :jogador_atual => jogo.jogador_atual.id,
-      :jogo_completo => jogo.completo?
+      :jogo_completo => jogo.completo?,
+      :partida_nova => jogo.partida_nova?,
+      :rodada_nova => jogo.rodada_nova?
     }, :layout => false
   
   end
