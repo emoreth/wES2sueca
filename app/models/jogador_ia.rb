@@ -5,17 +5,15 @@ class JogadorIA < Jogador
   end
 
   def proxima_jogada(naipe)
-    self.cartas_validas(naipe).first
+    cartas_validas = self.cartas_validas(naipe)
+    if cartas_validas.empty?
+      cartas_validas = @cartas
+    end
+    cartas_validas.first
   end
 
   def cartas_validas(naipe)
-    @cartas.select do |carta|
-      if naipe
-        carta.naipe == naipe
-      else
-        true
-      end
-    end
+    @cartas.select { |carta| carta.naipe == naipe }
   end
-  
 end
+  
