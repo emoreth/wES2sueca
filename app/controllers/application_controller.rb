@@ -2,10 +2,10 @@ class ApplicationController < ActionController::Base
   
 
 	def index
-    @jogador1 = Jogador.new
-    @jogador2 = JogadorIA.new
-    @jogador3 = JogadorIA.new
-    @jogador4 = JogadorIA.new
+    @jogador1 = Jogador.new 0
+    @jogador2 = JogadorIA.new 1
+    @jogador3 = JogadorIA.new 2
+    @jogador4 = JogadorIA.new 3
 
     @dupla1 = Dupla.new @jogador1, @jogador3
     @dupla2 = Dupla.new @jogador2, @jogador4
@@ -30,13 +30,15 @@ class ApplicationController < ActionController::Base
     puts jogo.jogador_atual.id
     debugger
     if jogo.jogador_atual.ia?
+      debugger
       jogador_ia
     else
+      debugger
       jogador_humano
     end
    
     render :json => {
-      :computador => info,
+      :computador => @info,
       :trunfo => jogo.partida_atual.trunfo.nome_arquivo,
       :jogador_atual => jogo.jogador_atual.id,
       :jogo_completo => jogo.completo?,
@@ -63,6 +65,7 @@ class ApplicationController < ActionController::Base
     if params[:numero_carta] && params[:numero_carta].any?
       carta = jogo.jogador_atual.cartas.select { |cada_carta| cada_carta == params[:numero_carta] }.first
       if jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
+
 #        if jogo.jogador_atual.ia?
 #          jogador_ia
 #        end

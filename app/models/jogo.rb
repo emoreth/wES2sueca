@@ -16,7 +16,7 @@ class Jogo
     @dificuldade = FACIL
     @duplas = [dupla1, dupla2]
     @jogadores = [dupla1.jogadores[0], dupla2.jogadores[0], dupla1.jogadores[1], dupla2.jogadores[1]]
-    @jogadores.each_with_index { |jogador,i| jogador.id = i }
+#    @jogadores.each_with_index { |jogador,i| jogador.id = i }
     @partidas = []
   end
 
@@ -61,25 +61,23 @@ class Jogo
   def nova_jogada(jogada)
     rodada = @partida_atual.rodada_atual
 #    debugger unless rodada_nova? || jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
+    debugger
     if rodada_nova? || jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
       rodada.nova_jogada(jogada)
       jogada.carta.jogar!
-
       if rodada.completa?
         if @partida_atual.completa?
           nova_partida
         end
         @jogador_atual = rodada.vencedor
         @partida_atual.nova_rodada
-      else
-        debugger
-        proximo_jogador
       end
-      true
+#      true
     else
       debugger
-      false
+#      false
     end
+    proximo_jogador
   end
 
   def dificuldade=(nivel)

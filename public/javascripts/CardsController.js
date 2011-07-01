@@ -140,14 +140,34 @@ var CardsController = Class.create({
                         left : _XPos[this.currentPlayer] + "px",
                         position : "absolute"
                     })
-                );
-//                _card.absolutize();
+                    );
                 if(imagem){
                     _card.writeAttribute('src', '/images/cards/'+imagem+'.png')
                 }
-                new Effect.Appear(_card)
-                this.setCurrentCard(el);
-                this.nextMove();
+
+                new Effect.Appear(_card, {
+                    afterFinish : function(){
+                        var _cards = this.table.select('.card');
+                        if(_cards.length == 4) {
+                            _cards.each(function(card){
+                                new Effect.Fade(card, {
+                                    afterFinish : function(evt){
+                                        if(this.table.select('.card').length == 4) {
+                                            $(evt.element).remove();
+                                            this.setCurrentCard(el);
+                                            this.nextMove();
+
+                                        }
+                                    }.bind(this)
+                                });
+                            }.bind(this))
+                        } else {
+                            this.setCurrentCard(el);
+                            this.nextMove();
+                        }
+                        
+                    }.bind(this)
+                })
             }.bind(this)
         });
 
@@ -182,7 +202,9 @@ var CardsController = Class.create({
         if(r.responseJSON.computador) {
             _imagemCarta = r.responseJSON.computador.imagem_carta
         }
-        $('trunfo').writeAttribute('src', '/images/cards/'+r.responseJSON.trunfo+'.png')
+        if(r.responseJSON.trunfo) {
+            $('trunfo').writeAttribute('src', '/images/cards/'+r.responseJSON.trunfo+'.png')
+        }
         this.throwCard(_nextCard, _imagemCarta);
     },
 
@@ -202,6 +224,7 @@ var CardsController = Class.create({
                 this.currentPlayer = 0;
             }
         }
+        
     },
 
     isHumanPlayer : function() {
@@ -210,11 +233,15 @@ var CardsController = Class.create({
 
     announcePlayer : function() {
         if(this.isHumanPlayer()) {
-            window.NC.growl("É a vez do jogador humano");
+            window.NC.growl("É a vez do jogador humano", {
+                sticky: true
+            });
         }
         else {
             if(this.currentPlayer !== null) {
-                window.NC.growl("E a vez do jogador: " + this.currentPlayer)
+                window.NC.growl("E a vez do jogador: " + this.currentPlayer, {
+                    sticky: true
+                })
             }
         }
 
@@ -229,7 +256,9 @@ var CardsController = Class.create({
     },
 
     _startPlay : function() {
-        window.NC.growl("O jogo começou")
+        window.NC.growl("O jogo começou", {
+            sticky: true
+        })
         $('trunfo').show();
         this.announcePlayer();
         this.nextMove();

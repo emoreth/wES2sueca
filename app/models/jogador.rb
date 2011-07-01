@@ -4,7 +4,8 @@ class Jogador
   attr_accessor :dupla
   attr_accessor :id
 
-  def initialize
+  def initialize(id)
+    @id = id
     @cartas = []
   end
 
