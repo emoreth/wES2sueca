@@ -132,11 +132,6 @@ describe Jogo do
       @jogo.partida_atual.should be partida
     end
 
-    #    it "deve criar uma referência global para si mesmo" do
-    #      Jogo.should respond_to :instance
-    #      Jogo.instance.should be @jogo
-    #    end
-
     it "deve distribuir novas cartas ao criar nova partida" do
       @jogo.jogador_atual.should be_nil
       @jogo.nova_partida
@@ -245,5 +240,28 @@ describe Jogo do
       @jogadores[2].id.should == 2
       @jogadores[3].id.should == 3
     end
+
+#    it "deve saber se está completo" do
+#      @jogo.should respond_to :completo?
+#      @jogo.nova_partida
+#
+#      @jogadores.each_with_index { |j,i| j.instance_variable_set :@i, i}
+#
+#      @jogo.instance_variable_set :@jogador_atual, @jogadores[0]
+#
+#      indice_carta = 0
+#      10.times do
+#        4.times do |i|
+#          jogador = @jogadores[i]
+#          carta = jogador.cartas.first
+#          carta.naipe = "ouros"
+#          carta.numero = i.even? ? ["A","7","K","J","Q"][indice_carta % 5] : "2"
+#          @jogo.nova_jogada(Jogada.new(:jogador => jogador, :carta => carta))
+#          indice_carta += 1
+#        end
+#      end
+#
+#      @jogo.should be_completo
+#    end
   end
 end
