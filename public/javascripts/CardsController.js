@@ -1,6 +1,6 @@
 var CardsController = Class.create({
 
-    initialize : function()
+    initialize : function(level)
     {
         this.leftDeck = $("leftDeck");
         if(!this.leftDeck)
@@ -23,6 +23,7 @@ var CardsController = Class.create({
         this.borderWidth = 20;
         this.cardsDelivered = false;
         this.startPlayAllowed = false;
+        this.level = level;
     },
 
     randomizeCards : function()
@@ -143,7 +144,7 @@ var CardsController = Class.create({
                         left : (_cardPos.left - _tablePos.left - this.borderWidth) + "px",
                         position : "relative"
                     })
-                    );
+                );
                 _card.absolutize();
                 this.setCurrentCard(el);
                 this.nextMove();
@@ -162,6 +163,9 @@ var CardsController = Class.create({
         params = {};
         if(this.isHumanPlayer()) {
             params.numero_carta = (this.currentCard ? this.currentCard.getAttribute('data-card_number') : null)
+        }
+        if(this.currentPlayer === null) {
+            params.game_level = this.level;
         }
 
         this._nextPlayer();
