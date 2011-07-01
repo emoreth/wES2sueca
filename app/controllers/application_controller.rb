@@ -30,14 +30,16 @@ class ApplicationController < ActionController::Base
       :jogador_atual => jogo.jogador_atual.id,
       :jogo_completo => jogo.completo?,
       :partida_nova => jogo.partida_nova?,
-      :rodada_nova => jogo.rodada_nova?
+      :rodada_nova => jogo.rodada_nova?,
+      :pontos_jogo_dupla_1 => jogo.duplas[0].pontos_do_jogo,
+      :pontos_jogo_dupla_2 => jogo.duplas[1].pontos_do_jogo
     }, :layout => false
   
   end
 
   private
   def jogador_ia
-    carta = jogo.jogador_atual.proxima_jogada
+    carta = jogo.jogador_atual.proxima_jogada(jogo.partida_atual.rodada_atual.naipe)
     if jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
       info = {}
       info[:numero_carta] = carta.id
