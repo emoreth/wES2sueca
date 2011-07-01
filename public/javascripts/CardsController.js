@@ -1,6 +1,6 @@
 var CardsController = Class.create({
 
-    initialize : function()
+    initialize : function(level)
     {
         this.leftDeck = $("leftDeck");
         if(!this.leftDeck)
@@ -19,10 +19,11 @@ var CardsController = Class.create({
             throw Error('O a mesa não foi encontrada. (#table)');
 
         this.humanPlayerNumber = 0;
-        this.currentPlayer = 0;
+        this.currentPlayer = null;
         this.borderWidth = 20;
         this.cardsDelivered = false;
         this.startPlayAllowed = false;
+        this.level = level;
     },
 
     randomizeCards : function()
@@ -122,7 +123,12 @@ var CardsController = Class.create({
         }
     },
 
-    throwCard : function(el) {        
+    throwCard : function(el) {
+
+        if(this.currentPlayer === null) {
+            this._findPlayerByCard(el)
+        }
+
         new Effect.Move(el, {
             x: 0,
             y: -100,
@@ -138,20 +144,15 @@ var CardsController = Class.create({
                         left : (_cardPos.left - _tablePos.left - this.borderWidth) + "px",
                         position : "relative"
                     })
-                    );
+                );
                 _card.absolutize();
                 this.setCurrentCard(el);
                 this.nextMove();
             }.bind(this)
         });
-        
 
         el.removeAttribute('data-selected');
 
-    //el.setStyle({
-    //    top : '250px',
-    //    left: '250px'
-    //})
     },
 
     setCurrentCard : function(value) {
@@ -159,12 +160,16 @@ var CardsController = Class.create({
     },
 
     nextMove: function(){
-        params = {
-            numero_carta : (this.currentCard ? this.currentCard.getAttribute('data-card_number') : null)
-        };
+        params = {};
+        if(this.isHumanPlayer()) {
+            params.numero_carta = (this.currentCard ? this.currentCard.getAttribute('data-card_number') : null)
+        }
+        if(this.currentPlayer === null) {
+            params.game_level = this.level;
+        }
 
         this._nextPlayer();
-
+        this.announcePlayer();
         new Ajax.Request("proxima_jogada", {
             parameters : params,
             onSuccess : this._moveHandler.bind(this)
@@ -172,12 +177,8 @@ var CardsController = Class.create({
     },
 
     _moveHandler : function(r) {
-        if(!this.isHumanPlayer()) {
-            console.log(r.responseJSON.computador);
-            var _nextCard = $$("img[data-card_number='"+r.responseJSON.computador.numero_carta+"']").first();
-            console.log(_nextCard);
-            this.throwCard(_nextCard);
-        }
+        var _nextCard = $$("img[data-card_number='"+r.responseJSON.computador.numero_carta+"']").first();
+        this.throwCard(_nextCard);
     },
 
     setFirstPlayer: function(playerNumber)
@@ -190,9 +191,11 @@ var CardsController = Class.create({
     },
 
     _nextPlayer : function() {
-        this.currentPlayer++;
-        if(this.currentPlayer >= 4) {
-            this.currentPlayer = 0;
+        if(this.currentPlayer !== null) {
+            this.currentPlayer++;
+            if(this.currentPlayer >= 4) {
+                this.currentPlayer = 0;
+            }
         }
     },
 
@@ -201,9 +204,15 @@ var CardsController = Class.create({
     },
 
     announcePlayer : function() {
-        if(console && console.log) {
-            console.log(this.currentPlayer);
+        if(this.isHumanPlayer()) {
+            window.NC.growl("É a vez do jogador humano");
         }
+        else {
+            if(this.currentPlayer !== null) {
+                window.NC.growl("E a vez do jogador: " + this.currentPlayer)
+            }
+        }
+
     },
 
     startPlay : function() {
@@ -215,8 +224,16 @@ var CardsController = Class.create({
     },
 
     _startPlay : function() {
+        window.NC.growl("O jogo começou")
         this.announcePlayer();
         this.nextMove();
+    },
+
+
+    _findPlayerByCard : function(card){
+        var _deck = card.up('.deck');
+        var _deckOrder = ['baixo', 'esquerda', 'topo', 'direita'];
+        this.setFirstPlayer(_deckOrder.indexOf(_deck.readAttribute('data-posicao')))
     }
 
 

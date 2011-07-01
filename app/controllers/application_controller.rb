@@ -16,8 +16,12 @@ class ApplicationController < ActionController::Base
 
 	end
 
+  def configurar_dificuldade
+    jogo.dificuldade=(params[:dificuldade])
+    render :json => {},  :layout => false
+  end
+
   def proxima_jogada
-    #        breakpoint
     info = nil
     if jogo.jogador_atual.ia?
       info = jogador_ia
@@ -28,9 +32,14 @@ class ApplicationController < ActionController::Base
     render :json => {
       :computador => info,
       :trunfo => jogo.partida_atual.trunfo.nome_arquivo,
-      :jogador_atual => jogo.jogador_atual.id
+      :jogador_atual => jogo.jogador_atual.id,
+      :jogo_completo => jogo.completo?,
+      :partida_nova => jogo.partida_nova?,
+      :rodada_nova => jogo.rodada_nova?,
+      :pontos_jogo_dupla_1 => jogo.duplas[0].pontos_do_jogo,
+      :pontos_jogo_dupla_2 => jogo.duplas[1].pontos_do_jogo
     }, :layout => false
-
+  
   end
 
   private

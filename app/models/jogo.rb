@@ -7,13 +7,14 @@ class Jogo
   attr_reader :dificuldade
 
   # DIFICULDADES
-  FACIL   = "Fácil"
-  NORMAL  = "Normal"
-  DIFICIL = "Difícil"
-  EXPERT  = "Expert"
+  FACIL   = "facil"
+  NORMAL  = "normal"
+  DIFICIL = "dificil"
+  EXPERT  = "expert"
   DIFICULDADES = [FACIL, NORMAL, DIFICIL, EXPERT]
 
   def initialize(dupla1, dupla2)
+    @dificuldade = FACIL
     @duplas = [dupla1, dupla2]
     @jogadores = [dupla1.jogadores[0], dupla2.jogadores[0], dupla1.jogadores[1], dupla2.jogadores[1]]
     @jogadores.each_with_index { |jogador,i| jogador.id = i }
@@ -82,6 +83,19 @@ class Jogo
 
   def dificuldade=(nivel)
     raise ArgumentError, "dificuldade deve ser válida" unless DIFICULDADES.include? nivel
-    self[:dificuldade] = nivel
+    @dificuldade = nivel
+  end
+
+  def completo?
+    @duplas.detect { |dupla| dupla.pontos_do_jogo >= 4 }
+  end
+
+  def rodada_nova?
+    @partida_atual.rodada_atual.jogadas.empty?
+  end
+
+  def partida_nova?
+    @partida_atual.rodadas.length == 1 &&
+      rodada_nova?
   end
 end

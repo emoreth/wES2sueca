@@ -80,5 +80,15 @@ describe Rodada do
       
       @rodada.should be_completa
     end
+
+    it "deve saber quem foi o primeiro jogador" do
+      @rodada.should respond_to :primeiro_jogador
+      jogador = Jogador.new
+      carta = Carta.new(:naipe => "ouros", :numero => "A")
+      jogador.receber_cartas([carta])
+      @rodada.nova_jogada(Jogada.new(:jogador => jogador, :carta => carta))
+
+      @rodada.primeiro_jogador.should be jogador
+    end
   end
 end
