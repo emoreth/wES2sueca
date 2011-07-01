@@ -61,23 +61,23 @@ class Jogo
   def nova_jogada(jogada)
     rodada = @partida_atual.rodada_atual
 #    debugger unless rodada_nova? || jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
+    debugger
     if rodada_nova? || jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
       rodada.nova_jogada(jogada)
       jogada.carta.jogar!
-
       if rodada.completa?
         if @partida_atual.completa?
           nova_partida
         end
         @jogador_atual = rodada.vencedor
         @partida_atual.nova_rodada
-      else
-        proximo_jogador
       end
-      true
+#      true
     else
-      false
+      debugger
+#      false
     end
+    proximo_jogador
   end
 
   def dificuldade=(nivel)
