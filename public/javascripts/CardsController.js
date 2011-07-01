@@ -210,11 +210,11 @@ var CardsController = Class.create({
 
     announcePlayer : function() {
         if(this.isHumanPlayer()) {
-            window.NC.growl("É a vez do jogador humano");
+            window.NC.growl("É a vez do jogador humano", { sticky: true});
         }
         else {
             if(this.currentPlayer !== null) {
-                window.NC.growl("E a vez do jogador: " + this.currentPlayer)
+                window.NC.growl("E a vez do jogador: " + this.currentPlayer, { sticky: true})
             }
         }
 
@@ -229,7 +229,7 @@ var CardsController = Class.create({
     },
 
     _startPlay : function() {
-        window.NC.growl("O jogo começou")
+        window.NC.growl("O jogo começou", { sticky: true})
         $('trunfo').show();
         this.announcePlayer();
         this.nextMove();

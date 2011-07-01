@@ -2,10 +2,10 @@ class ApplicationController < ActionController::Base
   
 
 	def index
-    @jogador1 = Jogador.new
-    @jogador2 = JogadorIA.new
-    @jogador3 = JogadorIA.new
-    @jogador4 = JogadorIA.new
+    @jogador1 = Jogador.new 0
+    @jogador2 = JogadorIA.new 1
+    @jogador3 = JogadorIA.new 2
+    @jogador4 = JogadorIA.new 3
 
     @dupla1 = Dupla.new @jogador1, @jogador3
     @dupla2 = Dupla.new @jogador2, @jogador4
