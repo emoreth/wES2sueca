@@ -18,7 +18,6 @@ describe Carta do
   describe "Validações:" do
 
     it "deve aceitar um hash na inicialização" do
-      # Não sei bem como testar isso, se alguém tiver uma idéia melhor pode mudar à vontade!
       lambda{
         carta = Carta.new :naipe => "ouros", :numero => "A"
         carta.naipe.should == "ouros"
@@ -89,7 +88,7 @@ describe Carta do
       dupla1 = Dupla.new(jogadores[0], jogadores[2])
       dupla2 = Dupla.new(jogadores[1], jogadores[3])
       jogo = Jogo.new dupla1, dupla2
-      jogo.distribuir_cartas
+      jogo.nova_partida
       
       jogador = jogo.jogador_atual
       carta = jogador.cartas.first

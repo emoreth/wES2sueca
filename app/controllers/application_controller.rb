@@ -33,4 +33,12 @@ class ApplicationController < ActionController::Base
 
   end
 
+  def jogador_humano
+    if params[:numero_carta] && params[:numero_carta].any?
+      carta = jogo.jogador_atual.cartas.select { |carta| carta == params[:numero_carta] }.first
+      if jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
+        jogador_ia
+      end
+    end
+  end
 end

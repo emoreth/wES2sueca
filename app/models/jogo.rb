@@ -2,7 +2,6 @@ class Jogo
 
   attr_reader :duplas
   attr_reader :jogador_atual
-  attr_reader :trunfo
   attr_reader :partidas
   attr_reader :partida_atual
   attr_reader :dificuldade
@@ -17,8 +16,8 @@ class Jogo
   def initialize(dupla1, dupla2)
     @duplas = [dupla1, dupla2]
     @jogadores = [dupla1.jogadores[0], dupla2.jogadores[0], dupla1.jogadores[1], dupla2.jogadores[1]]
+    @jogadores.each_with_index { |jogador,i| jogador.id = i }
     @partidas = []
-    nova_partida
   end
 
   def distribuir_cartas
@@ -27,7 +26,6 @@ class Jogo
 		@jogadores.each do |jogador|
       jogador.receber_cartas baralho.comprar
     end
-    @trunfo = @jogador_atual.cartas.first
   end
 
   def sortear_jogador
@@ -35,7 +33,11 @@ class Jogo
   end
 
   def escolher_primeiro
-    @jogador_atual = sortear_jogador
+    if @jogador_atual
+      @jogador_atual = @partida_atual.dupla_vencedora.jogadores.first
+    else
+      @jogador_atual = sortear_jogador
+    end
   end
 
   def proximo_jogador
@@ -44,20 +46,33 @@ class Jogo
 
   def nova_partida
     raise "jogo deve ter no máximo 7 partidas" if @partidas.length == 7
+    distribuir_cartas
     partida = Partida.new
     @partidas << partida
     @partida_atual = partida
+    @partida_atual.trunfo = @jogador_atual.cartas.first
+    @partida_atual
   end
 
   def nova_jogada(jogada)
     rodada = @partida_atual.rodada_atual
-    if rodada.completa?
-      if @partida_atual.completa?
-        nova_partida
+    if !rodada.naipe || jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
+      rodada.nova_jogada(jogada)
+      jogada.carta.jogar!
+
+      if rodada.completa?
+        if @partida_atual.completa?
+          nova_partida
+        end
+        @jogador_atual = rodada.vencedor
+        @partida_atual.nova_rodada
+      else
+        proximo_jogador
       end
-      rodada = @partida_atual.nova_rodada
+      true
+    else
+      false
     end
-    rodada.nova_jogada(jogada)
   end
 
   def dificuldade=(nivel)

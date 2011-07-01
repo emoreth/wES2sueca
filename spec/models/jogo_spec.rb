@@ -77,8 +77,8 @@ describe Jogo do
   describe "Comportamento:" do
 
     it "deve poder distribuir as cartas" do
-      @jogo.should respond_to :distribuir_cartas
-      @jogo.distribuir_cartas
+      @jogo.should respond_to :nova_partida
+      @jogo.nova_partida
       @jogo.duplas.each do |dupla|
         dupla.jogadores.each do |jogador|
           jogador.cartas.should have(10).cartas
@@ -113,17 +113,10 @@ describe Jogo do
       4.times { |i| @jogadores[(pos + i + 1) % 4].should be @jogo.proximo_jogador }
     end
 
-    it "deve saber o trunfo da partida" do
-      @jogo.should respond_to :trunfo
-      @jogo.distribuir_cartas
-      trunfo = @jogo.trunfo
-      trunfo.should be_a Carta
-      @jogo.jogador_atual.cartas.should include trunfo
-    end
-
     it "deve poder receber nova jogada" do
       @jogo.should respond_to :nova_jogada
-      jogada = Jogada.new :jogador => @jogadores.first, :carta => Carta.new(:naipe => "ouros", :numero => "A")
+      @jogo.nova_partida
+      jogada = Jogada.new :jogador => @jogadores.first, :carta => @jogadores.first.cartas.first
       @jogo.nova_jogada jogada
       @jogo.partida_atual.rodada_atual.jogadas.should include jogada
     end
@@ -139,9 +132,118 @@ describe Jogo do
       @jogo.partida_atual.should be partida
     end
 
-#    it "deve criar uma referência global para si mesmo" do
-#      Jogo.should respond_to :instance
-#      Jogo.instance.should be @jogo
-#    end
+    #    it "deve criar uma referência global para si mesmo" do
+    #      Jogo.should respond_to :instance
+    #      Jogo.instance.should be @jogo
+    #    end
+
+    it "deve distribuir novas cartas ao criar nova partida" do
+      @jogo.jogador_atual.should be_nil
+      @jogo.nova_partida
+      @jogo.jogador_atual.should_not be_nil
+    end
+
+    it "deve criar nova rodada ao criar nova partida" do
+      @jogo.nova_partida
+      @jogo.partida_atual.rodada_atual.should_not be_nil
+    end
+
+    describe "jogar uma carta" do
+
+      context "quando não há cartas na mesa" do
+        it "deve permitir qualquer carta" do
+          @jogo.nova_partida
+
+          jogador = @jogo.jogador_atual
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => jogador.cartas.first).
+            should be_true
+        end
+      end
+
+      context "quando tem carta válida" do
+        it "deve permitir carta do mesmo naipe" do
+          @jogo.nova_partida
+
+          jogador = @jogo.jogador_atual
+          carta = jogador.cartas.first
+          carta.naipe = "ouros"
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => carta)
+
+          jogador = @jogo.jogador_atual
+          carta = jogador.cartas.first
+          carta.naipe = "ouros"
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => carta).
+            should be_true
+        end
+
+        it "deve impedir carta de outro naipe" do
+          @jogo.nova_partida
+
+          jogador = @jogo.jogador_atual
+          carta = jogador.cartas.first
+          carta.naipe = "ouros"
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => carta)
+
+          jogador = @jogo.jogador_atual
+          carta = jogador.cartas.first
+          carta.naipe = "paus"
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => carta).
+            should be_false
+        end
+      end
+
+      context "quando não tem carta válida" do
+        it "deve permitir qualquer carta" do
+          @jogo.nova_partida
+
+          jogador = @jogo.jogador_atual
+          carta = jogador.cartas.first
+          carta.naipe == "ouros"
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => carta)
+
+          jogador = @jogo.jogador_atual
+          jogador.instance_variable_set :@cartas, []
+          carta = Carta.new(:naipe => "paus", :numero => "K")
+          jogador.receber_cartas [carta]
+          @jogo.nova_jogada(Jogada.new :jogador => jogador, :carta => carta).
+            should be_true
+        end
+      end
+    end
+
+    it "deve passar a vez do jogador quando for feita uma nova jogada" do
+      @jogo.nova_partida
+      jogador = @jogo.jogador_atual
+      @jogo.nova_jogada(Jogada.new(:jogador => jogador, :carta => jogador.cartas.first))
+      @jogo.jogador_atual.should_not be jogador
+    end
+
+    it "deve retirar a carta da mão do jogador em uma jogada bem sucedida" do
+      @jogo.nova_partida
+      jogador = @jogo.jogador_atual
+      carta = jogador.cartas.first
+      @jogo.nova_jogada(Jogada.new(:jogador => jogador, :carta => carta))
+      jogador.cartas.should_not include carta
+    end
+
+    it "deve determinar vencedor da rodada como próximo jogador" do
+      @jogo.nova_partida
+      rodada = @jogo.partida_atual.rodada_atual
+      4.times do
+        jogador = @jogo.jogador_atual
+        carta = jogador.cartas.first
+        carta.naipe = "ouros"
+        @jogo.nova_jogada(Jogada.new(:jogador => jogador, :carta => carta))
+      end
+      
+      rodada.vencedor.should be @jogo.jogador_atual
+    end
+
+    it "deve determinar ids para os jogadores na inicialização" do
+      @jogadores[0].id.should == 0
+      @jogadores[1].id.should == 1
+      @jogadores[2].id.should == 2
+      @jogadores[3].id.should == 3
+    end
   end
 end

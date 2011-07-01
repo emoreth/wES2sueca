@@ -7,7 +7,7 @@ describe Jogador do
     dupla1 = Dupla.new(@jogadores[0], @jogadores[2])
     dupla2 = Dupla.new(@jogadores[1], @jogadores[3])
     @jogo = Jogo.new dupla1, dupla2
-    @jogo.distribuir_cartas
+    @jogo.nova_partida
     @carta = Carta.new(:naipe => "ouros", :numero => "A")
     @jogador = Jogador.new
   end
@@ -35,6 +35,12 @@ describe Jogador do
   end
 
   describe "Atributos:" do
+
+    it "deve ter um id" do
+      @jogador.should respond_to :id
+      @jogador.id = 1
+      @jogador.id.should == 1
+    end
 
     it "deve ter cartas" do
       @jogador.should respond_to :cartas
@@ -69,18 +75,11 @@ describe Jogador do
       @jogador.ia?.should be_false
     end
 
-#    it "deve passar a vez ao jogar uma carta" do
-#      jogadores = [Jogador.new, Jogador.new, Jogador.new, Jogador.new]
-#      dupla1 = Dupla.new(jogadores[0], jogadores[2])
-#      dupla2 = Dupla.new(jogadores[1], jogadores[3])
-#      jogo = Jogo.new dupla1, dupla2
-#      jogo.distribuir_cartas
-#
-#      pos = jogadores.index jogo.jogador_atual
-#      4.times do |i|
-#        jogo.jogador_atual.should be jogadores[(pos + i) % 4]
-#        jogo.jogador_atual.cartas.first.jogar!
-#      end
-#    end
+    it "deve saber retornar as cartas de um naipe específico" do
+      @jogador.should respond_to :cartas_do_naipe
+      carta = Carta.new(:naipe => "ouros", :numero => "A")
+      @jogador.receber_cartas([carta])
+      @jogador.cartas_do_naipe("ouros").should include carta
+    end
   end
 end

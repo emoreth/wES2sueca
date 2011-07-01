@@ -1,5 +1,4 @@
 Event.observe(document, 'dom:loaded', function(){
-
     Modalbox.show($('want_to_play'), {
         title : "Teste",
         height : 100,
@@ -17,5 +16,5 @@ Event.observe(document, 'dom:loaded', function(){
     });
 
     window.NC = new Growler({location:"br"});
-    
-})
+   
+});

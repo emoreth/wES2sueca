@@ -2,6 +2,7 @@ class Jogador
 
   attr_reader :cartas
   attr_accessor :dupla
+  attr_accessor :id
 
   def initialize
     @cartas = []
@@ -16,11 +17,14 @@ class Jogador
 
   def jogar_carta(carta)
     raise ArgumentError, "não há cartas para jogar" if @cartas.empty?
-    @cartas.delete carta
+    @cartas.delete_at @cartas.index(carta) if @cartas.index(carta)
   end
 
   def ia?
     false
   end
-end
 
+  def cartas_do_naipe(naipe)
+    @cartas.select { |carta| carta.naipe == naipe }
+  end
+end

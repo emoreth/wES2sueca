@@ -3,7 +3,7 @@ class Carta
   NAIPES = ["ouros", "espadas", "paus", "copas"]
   NUMEROS = ["A", "7", "K", "J", "Q", "6", "5", "4", "3", "2"]
   
-  attr_reader :naipe, :numero
+  attr_accessor :naipe, :numero
   attr_accessor :jogador, :id
 
   def initialize(attributes = {})
