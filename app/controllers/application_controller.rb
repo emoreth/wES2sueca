@@ -20,13 +20,9 @@ class ApplicationController < ActionController::Base
 	end
 
   def proxima_jogada
-    puts params[:game_level] if params[:game_level]
     
     jogo.dificuldade = params[:game_level] if params[:game_level]
-
     @info = nil
-    puts ">" * 10
-    puts jogo.jogador_atual.id
     if jogo.jogador_atual.ia?
       jogador_ia
     else
@@ -48,25 +44,37 @@ class ApplicationController < ActionController::Base
 
   private
   def jogador_ia
+    puts "jogador da ia numero #{jogo.jogador_atual.id}"
     carta = jogo.jogador_atual.proxima_jogada(jogo.partida_atual.rodada_atual.naipe)
-    if jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
+    jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
       info = {}
       info[:numero_carta] = carta.id
       info[:imagem_carta] = carta.nome_arquivo
       @info = info
-    end
+#      jogo.jogador_atual.jogar_carta(carta)
+      carta.jogar!
   end
 
   def jogador_humano
+    puts "caralho nao passei nada!!!" unless params[:numero_carta]
+    puts ">" * 30 if params[:numero_carta]
+    puts "passei com a carta #{params[:numero_carta]}!!!" if params[:numero_carta]
+    puts ">" * 30 if params[:numero_carta]
     if params[:numero_carta] && params[:numero_carta].any?
-      carta = jogo.jogador_atual.cartas.select { |cada_carta| cada_carta == params[:numero_carta] }.first
+      carta = jogo.jogador_atual.cartas.select { |cada_carta| cada_carta.id == params[:numero_carta] }.first
+      puts "--- Carta Jogada pelo Humano #{carta}"
+      if carta.nil?
+        carta = jogo.jogador_atual.cartas.first
+      end
       if jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
-
-#        if jogo.jogador_atual.ia?
-#          jogador_ia
-#        end
+        if jogo.jogador_atual.ia?
+          return jogador_ia
+        else
+          return jogador_humano
+        end
       end
     end
+    @info = nil
   end
 
   def jogo

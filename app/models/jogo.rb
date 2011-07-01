@@ -41,6 +41,7 @@ class Jogo
   end
 
   def proximo_jogador
+    puts  "Trocando o jogar de id #{@jogador_atual.id} para o id #{@jogadores[(@jogadores.index(@jogador_atual) + 1) % @jogadores.length].id}"
     @jogador_atual = @jogadores[(@jogadores.index(@jogador_atual) + 1) % @jogadores.length]
   end
 

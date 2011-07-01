@@ -10,7 +10,7 @@ class Rodada
 
   def nova_jogada(jogada)
     raise "rodada deve ter no máximo 4 jogadas" if @jogadas.length == 4
-    if @jogadas.empty?
+    if @jogadas.empty?      
       @naipe = jogada.carta.naipe
       @primeiro_jogador = jogada.jogador
     end
@@ -40,6 +40,9 @@ class Rodada
   end
 
   def completa?
+    puts "*" * 20
+    puts "o numero de rodadas atual é #{@jogadas.length}"
+    puts "*" * 20
     @jogadas.length == 4
   end
 end

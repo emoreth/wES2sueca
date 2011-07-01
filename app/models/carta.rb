@@ -60,6 +60,6 @@ class Carta
   end
 
   def jogar!
-    @jogador.jogar_carta self
+    self.jogador.jogar_carta self
   end
 end

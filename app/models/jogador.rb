@@ -10,6 +10,7 @@ class Jogador
   end
 
   def receber_cartas(cartas)
+    puts "O jogador #{self.id} recebeu as cartas : #{cartas.collect(&:id).join(",")}"
     raise ArgumentError, "jogador deve ter no máximo 10 cartas" if (@cartas.length + cartas.length) > 10
     @cartas += cartas
     cartas.each { |carta| carta.jogador = self }
@@ -17,8 +18,12 @@ class Jogador
   end
 
   def jogar_carta(carta)
-    raise ArgumentError, "não há cartas para jogar" if @cartas.empty?
-    @cartas.delete_at @cartas.index(carta) if @cartas.index(carta)
+#    raise ArgumentError, "não há cartas para jogar" if @cartas.empty?
+    if @cartas.index(carta)
+      @cartas.delete_at @cartas.index(carta)
+      puts "carta removida, numero: " + carta.id
+    end
+    return carta
   end
 
   def ia?
