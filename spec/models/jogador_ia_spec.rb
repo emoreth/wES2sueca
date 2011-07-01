@@ -8,6 +8,7 @@ describe JogadorIA do
     dupla1 = Dupla.new(@jogadores[0], @jogadores[2])
     dupla2 = Dupla.new(@jogadores[1], @jogadores[3])
     @jogo = Jogo.new dupla1, dupla2
+    @jogadorIA.jogo = @jogo
     @jogo.nova_partida
   end
 
