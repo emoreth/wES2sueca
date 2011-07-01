@@ -61,7 +61,6 @@ class Jogo
   def nova_jogada(jogada)
     rodada = @partida_atual.rodada_atual
 #    debugger unless rodada_nova? || jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
-    debugger
     if rodada_nova? || jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
       rodada.nova_jogada(jogada)
       jogada.carta.jogar!
@@ -73,9 +72,6 @@ class Jogo
         @partida_atual.nova_rodada
       end
 #      true
-    else
-      debugger
-#      false
     end
     proximo_jogador
   end

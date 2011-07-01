@@ -7,7 +7,6 @@ class JogadorIA < Jogador
   end
 
   def proxima_jogada(naipe)
-    debugger
 #    cartas_validas = self.cartas_validas(naipe)
 #    if cartas_validas.empty?
 #      cartas_validas = @cartas

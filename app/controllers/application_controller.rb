@@ -20,7 +20,6 @@ class ApplicationController < ActionController::Base
 	end
 
   def proxima_jogada
-    debugger
     puts params[:game_level] if params[:game_level]
     
     jogo.dificuldade = params[:game_level] if params[:game_level]
@@ -28,12 +27,9 @@ class ApplicationController < ActionController::Base
     @info = nil
     puts ">" * 10
     puts jogo.jogador_atual.id
-    debugger
     if jogo.jogador_atual.ia?
-      debugger
       jogador_ia
     else
-      debugger
       jogador_humano
     end
    
