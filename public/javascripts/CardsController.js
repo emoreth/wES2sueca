@@ -124,7 +124,6 @@ var CardsController = Class.create({
 
     throwCard : function(el) {
 
-        console.log('essa porra e', this.currentPlayer)
         if(this.currentPlayer === null) {
             this._findPlayerByCard(el)
         }

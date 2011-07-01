@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>WES2sueca</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults, 'scriptaculous', 'CardsController', 'NotificationController','growler', 'modalbox'%>
-  <%= csrf_meta_tag %>
-</head>
-<body>
-  <div id="want_to_play" style="display: none;">
-    <input type="button" id="start_game" value="Jogar" />
-  </div>
-<%= yield %>
+  <head>
+    <title>WES2sueca</title>
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'></link>
+    <%= stylesheet_link_tag :all %>
+    <%= javascript_include_tag :defaults, 'scriptaculous', 'CardsController', 'NotificationController','growler', 'modalbox'%>
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <div class="Growler partidas">
+      <div class="Growler-notice">
+        <div class="Growler-notice-body">Partida</div>
+        <div id="partida_numero">0 X 0</div>
+      </div>
+    </div>
+    <div class="Growler jogo">
+      <div class="Growler-notice">
+        <div class="Growler-notice-body">Nos X Eles</div>
+        <div id="jogo_numero">0 X 0</div>
+      </div>
+    </div>
+    <div id="want_to_play" style="display: none;">
+      <input type="button" id="start_game" value="Jogar" />
+    </div>
+    <%= yield %>
 
-</body>
+  </body>
 </html>
