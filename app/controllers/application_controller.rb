@@ -2,16 +2,19 @@ class ApplicationController < ActionController::Base
   
 
 	def index
-@jogador1 = Jogador.new
-@jogador2 = JogadorIA.new
-@jogador3 = JogadorIA.new
-@jogador4 = JogadorIA.new
+    @jogador1 = Jogador.new
+    @jogador2 = JogadorIA.new
+    @jogador3 = JogadorIA.new
+    @jogador4 = JogadorIA.new
 
-@dupla1 = Dupla.new @jogador1, @jogador3
-@dupla2 = Dupla.new @jogador2, @jogador4
+    @dupla1 = Dupla.new @jogador1, @jogador3
+    @dupla2 = Dupla.new @jogador2, @jogador4
 
-@jogo = Jogo.new @dupla1, @dupla2
-@jogo.nova_partida
+    @jogo = Jogo.new @dupla1, @dupla2
+    @jogador2.jogo = @jogo
+    @jogador3.jogo = @jogo
+    @jogador4.jogo = @jogo
+    @jogo.nova_partida
     session[:jogo] = @jogo
 
 	end
