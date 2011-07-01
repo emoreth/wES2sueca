@@ -72,10 +72,12 @@ class Jogo
         @jogador_atual = rodada.vencedor
         @partida_atual.nova_rodada
       else
+        debugger
         proximo_jogador
       end
       true
     else
+      debugger
       false
     end
   end
