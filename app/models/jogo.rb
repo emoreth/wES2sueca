@@ -54,9 +54,14 @@ class Jogo
     @partida_atual
   end
 
+  def jogar(carta)
+    nova_jogada(Jogada.new(:jogador => self.jogador_atual, :carta => carta))
+  end
+
   def nova_jogada(jogada)
+#    debugger
     rodada = @partida_atual.rodada_atual
-    if !rodada.naipe || jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
+#    if jogada.jogador.cartas_do_naipe(rodada.naipe).empty? || jogada.carta.naipe == rodada.naipe
       rodada.nova_jogada(jogada)
       jogada.carta.jogar!
 
@@ -69,10 +74,10 @@ class Jogo
       else
         proximo_jogador
       end
-      true
-    else
-      false
-    end
+#      true
+#    else
+#      false
+#    end
   end
 
   def dificuldade=(nivel)
