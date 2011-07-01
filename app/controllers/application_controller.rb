@@ -23,9 +23,9 @@ class ApplicationController < ActionController::Base
 
     jogo.dificuldade = params[:game_level] if params[:game_level]
 
-    info = nil
+    @info = nil
     if jogo.jogador_atual.ia?
-      info = jogador_ia
+      jogador_ia
     else
       jogador_humano
     end
@@ -50,9 +50,7 @@ class ApplicationController < ActionController::Base
       info = {}
       info[:numero_carta] = carta.id
       info[:imagem_carta] = carta.nome_arquivo
-      info
-    else
-      nil
+      @info = info
     end
   end
 
@@ -60,7 +58,10 @@ class ApplicationController < ActionController::Base
     if params[:numero_carta] && params[:numero_carta].any?
       carta = jogo.jogador_atual.cartas.select { |carta| carta == params[:numero_carta] }.first
       if jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
-        jogador_ia
+        if jogo.jogador_atual.ia?
+          debugger
+          jogador_ia
+        end
       end
     end
   end
