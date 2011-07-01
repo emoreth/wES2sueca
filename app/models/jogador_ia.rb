@@ -15,7 +15,7 @@ class JogadorIA < Jogador
     case jogo.dificuldade
     when Jogo::FACIL
       turno_nivel_facil
-    when Jogo::Normal
+    when Jogo::NORMAL
       turno_nivel_normal
     when Jogo::DIFICIL
       turno_nivel_dificil

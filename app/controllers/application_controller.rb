@@ -21,6 +21,8 @@ class ApplicationController < ActionController::Base
 
   def proxima_jogada
 
+    puts params[:game_level] if params[:game_level]
+    
     jogo.dificuldade = params[:game_level] if params[:game_level]
 
     info = nil

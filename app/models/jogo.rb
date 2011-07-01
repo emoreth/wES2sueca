@@ -10,8 +10,7 @@ class Jogo
   FACIL   = "Fácil"
   NORMAL  = "Normal"
   DIFICIL = "Difícil"
-  EXPERT  = "Expert"
-  DIFICULDADES = [FACIL, NORMAL, DIFICIL, EXPERT]
+  DIFICULDADES = [FACIL, NORMAL, DIFICIL]
 
   def initialize(dupla1, dupla2)
     @dificuldade = FACIL
