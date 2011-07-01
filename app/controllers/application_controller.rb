@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
 
   def proxima_jogada
 
-    debugger
     jogo.dificuldade = params[:game_level] if params[:game_level]
 
     info = nil
@@ -43,8 +42,8 @@ class ApplicationController < ActionController::Base
 
   private
   def jogador_ia
-    carta = jogo.jogador_atual.proxima_jogada
-    if jogo.jogar(carta)
+    carta = jogo.jogador_atual.proxima_jogada(jogo.partida_atual.rodada_atual.naipe)
+    if jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
       info = {}
       info[:numero_carta] = carta.id
       info[:imagem_carta] = carta.nome_arquivo
@@ -57,7 +56,7 @@ class ApplicationController < ActionController::Base
   def jogador_humano
     if params[:numero_carta] && params[:numero_carta].any?
       carta = jogo.jogador_atual.cartas.select { |carta| carta == params[:numero_carta] }.first
-      if jogo.jogar(carta)
+      if jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
         jogador_ia
       end
     end

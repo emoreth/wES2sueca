@@ -9,7 +9,13 @@ class JogadorIA < Jogador
   end
 
   def cartas_validas(naipe)
-    @cartas.select { |carta| carta.naipe == naipe }
+    @cartas.select do |carta|
+      if naipe
+        carta.naipe == naipe
+      else
+        true
+      end
+    end
   end
   
 end
