@@ -11,39 +11,26 @@ class ApplicationController < ActionController::Base
 		@dupla2 = Dupla.new @jogador2, @jogador4
 
 		@jogo = Jogo.new @dupla1, @dupla2
-		@jogo.nova_partida
+		@jogo.distribuir_cartas
     session[:jogo] = @jogo
 
 	end
 
   def proxima_jogada
-    #        breakpoint
+
     info = nil
-    if jogo.jogador_atual.ia?
-      info = jogador_ia
+    jogador = session[:jogo].jogador_atual
+    if jogador.ia?
+      info = {}
+      info[:numero_carta] = jogador.proxima_jogada.id
     else
-      jogador_humano
+      info  = nil
     end
-   
-    render :json => {
-      :computador => info,
-      :trunfo => jogo.partida_atual.trunfo.nome_arquivo,
-      :jogador_atual => jogo.jogador_atual.id
+    session[:jogo].proximo_jogador
+    render :json => { 
+      :computador => info
     }, :layout => false
 
-  end
-
-  private
-  def jogador_ia
-    carta = jogo.jogador_atual.proxima_jogada
-    if jogo.nova_jogada(Jogada.new(:jogador => jogo.jogador_atual, :carta => carta))
-      info = {}
-      info[:numero_carta] = carta.id
-      info[:imagem_carta] = carta.nome_arquivo
-      info
-    else
-      nil
-    end
   end
 
   def jogador_humano
@@ -54,9 +41,4 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-
-  def jogo
-    session[:jogo]
-  end
-
 end
